@@ -11,13 +11,14 @@ namespace Feif.UI
     {
     }
 
-    [WindowLayer]
+    [PanelLayer]
     public class UIMenuScreen : UIComponent<UIMenuScreenData>
     {
         [SerializeField] private Button btnNewGame;
         [SerializeField] private Button btnLoadGame;
         [SerializeField] private Button btnOptions;
         [SerializeField] private Button btnExit;
+        [SerializeField] private Button btnTest;
         [SerializeField] private Text txtTitle;
 
         protected override Task OnCreate()
@@ -53,7 +54,6 @@ namespace Feif.UI
         [UGUIButtonEvent("@BtnNewGame")]
         protected void OnClickBtnNewGame()
         {
-            Debug.Log("OnClickBtnNewGame");
         }
 
         [UGUIButtonEvent("@BtnLoadGame")]
@@ -64,10 +64,16 @@ namespace Feif.UI
         [UGUIButtonEvent("@BtnOptions")]
         protected void OnClickBtnOptions()
         {
+            UIFrame.Show<UIOptions>();
         }
 
         [UGUIButtonEvent("@BtnExit")]
         protected void OnClickBtnExit()
+        {
+        }
+
+        [UGUIButtonEvent("@BtnTest")]
+        protected void OnClickBtnTest()
         {
         }
 
