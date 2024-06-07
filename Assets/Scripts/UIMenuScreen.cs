@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Feif.UIFramework;
-
+using UnityEngine.SceneManagement;
 namespace Feif.UI
 {
     public class UIMenuScreenData : UIData
@@ -23,6 +23,7 @@ namespace Feif.UI
 
         protected override Task OnCreate()
         {
+            DontDestroyOnLoad(this);
             return Task.CompletedTask;
         }
 
@@ -54,6 +55,8 @@ namespace Feif.UI
         [UGUIButtonEvent("@BtnNewGame")]
         protected void OnClickBtnNewGame()
         {
+            SceneManager.LoadScene("GameScene");
+            UIFrame.Show<UIGameplayScreen>();
         }
 
         [UGUIButtonEvent("@BtnLoadGame")]
@@ -70,6 +73,11 @@ namespace Feif.UI
         [UGUIButtonEvent("@BtnExit")]
         protected void OnClickBtnExit()
         {
+#if UNITY_EDITOR
+            UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
         }
 
         [UGUIButtonEvent("@BtnTest")]

@@ -27,6 +27,8 @@ namespace Feif.UI
         string filePath;
         protected override Task OnCreate()
         {
+            DontDestroyOnLoad(this);
+
             filePath = Application.persistentDataPath + "/" + settingFileName;
             LoadSettings();
             volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
