@@ -23,6 +23,7 @@ public class MainCharacterController : MonoBehaviour
         }
         ProcessRotate();
         ProcessMove();
+        CheckFallen();
     }
 
     public float addForceSpeed = 400f;
@@ -76,4 +77,11 @@ public class MainCharacterController : MonoBehaviour
         }
     }
     #endregion
+
+    void CheckFallen()
+    {
+        bool fallen = this.transform.localPosition.y < -3;
+        if (fallen)
+            GameManager.Instance.GameOver(GameOverReason.Fallen);
+    }
 }

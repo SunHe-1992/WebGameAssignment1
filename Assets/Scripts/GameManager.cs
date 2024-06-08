@@ -1,11 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Feif.UIFramework;
 using UnityEngine;
-
+using Feif.UI;
 public class GameManager : MonoBehaviour
 {
     public bool running = true;
     public static GameManager Instance;
+    public GameOverReason gameOverReason = GameOverReason.Default;
     private void Awake()
     {
         Instance = this;
@@ -36,7 +38,7 @@ public class GameManager : MonoBehaviour
     }
     public void ToggleRunning()
     {
-        this.running= !this.running;
+        this.running = !this.running;
     }
     public void PauseGame()
     {
@@ -46,4 +48,20 @@ public class GameManager : MonoBehaviour
     {
         this.running = true;
     }
+
+    public void GameOver(GameOverReason reason)
+    {
+        this.gameOverReason = reason;
+        PauseGame();
+        UIFrame.Hide<UIGameplayScreen>();
+        //show game over UI
+        UIFrame.Show<UIGameOver>();
+    }
+}
+public enum GameOverReason
+{
+    Default = 0,
+    Fallen = 1,
+    OverTime = 2,
+    Died = 3,
 }

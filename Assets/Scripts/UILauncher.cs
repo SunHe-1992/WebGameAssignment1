@@ -53,12 +53,12 @@ namespace Feif
 
         private void OnStuckStart()
         {
-            stuckPanel.SetActive(true);
+            //stuckPanel.SetActive(true);
         }
 
         private void OnStuckEnd()
         {
-            stuckPanel.SetActive(false);
+            //stuckPanel.SetActive(false);
         }
     }
 }
