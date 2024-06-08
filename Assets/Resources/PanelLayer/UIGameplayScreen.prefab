@@ -303,8 +303,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -446.55905, y: -14}
-  m_SizeDelta: {x: -893.1181, y: 119.1553}
+  m_AnchoredPosition: {x: -464.51724, y: -14}
+  m_SizeDelta: {x: -929.0344, y: 404.0912}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3190653749301149931
 CanvasRenderer:
@@ -341,13 +341,19 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 4
     m_MaxSize: 83
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Game Play Screen
+  m_Text: 'Game Play Screen
+
+    move: WASD
+
+    hold right mouse to move camera
+
+'
 --- !u!114 &6702738087031746144
 MonoBehaviour:
   m_ObjectHideFlags: 0
