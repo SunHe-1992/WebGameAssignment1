@@ -480,6 +480,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   running: 1
   gameOverReason: 0
+  timeLimit: 75
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

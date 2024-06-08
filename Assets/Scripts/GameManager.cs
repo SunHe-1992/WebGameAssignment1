@@ -8,6 +8,11 @@ public class GameManager : MonoBehaviour
     public bool running = true;
     public static GameManager Instance;
     public GameOverReason gameOverReason = GameOverReason.Default;
+    /// <summary>
+    /// time limit
+    /// </summary>
+    public float timeLimit = 5f;
+    float timer = 0;
     private void Awake()
     {
         Instance = this;
@@ -20,7 +25,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-
+        timer = timeLimit;
     }
 
     // Update is called once per frame
@@ -29,11 +34,12 @@ public class GameManager : MonoBehaviour
         if (this.running)
         {
             Time.timeScale = 1;
+            CheckTimer();
+
         }
         else
         {
             Time.timeScale = 0;
-
         }
     }
     public void ToggleRunning()
@@ -57,9 +63,20 @@ public class GameManager : MonoBehaviour
         //show game over UI
         UIFrame.Show<UIGameOver>();
     }
-
+    public float GetTimer()
+    {
+        return this.timer;
+    }
+    void CheckTimer()
+    {
+        timer -= Time.deltaTime;
+        if (timer < 0)
+        {
+            GameOver(GameOverReason.OverTime);
+        }
+    }
     #region game settings
-    public GameSetting gameSetting =new GameSetting();
+    public GameSetting gameSetting = new GameSetting();
 
     #endregion
 }

@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 using Feif.UIFramework;
+using System;
 
 namespace Feif.UI
 {
@@ -82,7 +83,12 @@ namespace Feif.UI
                 strRun = "game paused";
             }
 
-            hud += strRun;
+
+            TimeSpan ts = TimeSpan.FromSeconds(GameManager.Instance.GetTimer());
+            string formattedTime = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
+
+            hud += strRun + "\n";
+            hud += formattedTime + "\n";
             this.txtHUD.text = hud;
         }
     }
