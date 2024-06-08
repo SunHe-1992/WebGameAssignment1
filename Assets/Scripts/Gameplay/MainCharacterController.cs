@@ -24,10 +24,15 @@ public class MainCharacterController : MonoBehaviour
         ProcessRotate();
         ProcessMove();
         CheckFallen();
+
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            DoJump();
+        }
     }
 
     public float addForceSpeed = 400f;
-
+    public float moveSpeed = 1f;
     #region move by axis
     void ProcessMove()
     {
@@ -39,16 +44,20 @@ public class MainCharacterController : MonoBehaviour
         }
         else
         {
-            var camForward = mainCam.transform.forward;
-            Vector3 cameraForward = camForward;
-            cameraForward.y = 0f;
-            cameraForward = cameraForward.normalized;
-            Vector3 vectForward = axisV * cameraForward * Time.deltaTime;
+            //var camForward = mainCam.transform.forward;
+            //Vector3 cameraForward = camForward;
+            //cameraForward.y = 0f;
+            //cameraForward = cameraForward.normalized;
+            //Vector3 vectForward = axisV * cameraForward * Time.deltaTime;
 
-            Vector3 cameraRight = mainCam.transform.right.normalized;
-            Vector3 vectRight = axisH * cameraRight * Time.deltaTime;
+            //Vector3 cameraRight = mainCam.transform.right.normalized;
+            //Vector3 vectRight = axisH * cameraRight * Time.deltaTime;
+            //rb.AddForce(addForceSpeed * (vectForward + vectRight));
 
-            rb.AddForce(addForceSpeed * (vectForward + vectRight));
+            Vector3 forwardVect = this.transform.forward * axisV;
+            Vector3 rightVect = this.transform.right * axisH;
+            Vector3 moveVect = (forwardVect + rightVect) * Time.deltaTime * moveSpeed;
+            this.transform.position += moveVect;
         }
     }
     bool isAxisSmall(float value)
@@ -83,5 +92,15 @@ public class MainCharacterController : MonoBehaviour
         bool fallen = this.transform.localPosition.y < -3;
         if (fallen)
             GameManager.Instance.GameOver(GameOverReason.Fallen);
+    }
+
+
+    public float jumpSpeed = 1000f;
+    void DoJump()
+    {
+        if (this.transform.position.y < 0.5f)
+        {
+            rb.AddForce(jumpSpeed * this.transform.up);
+        }
     }
 }
