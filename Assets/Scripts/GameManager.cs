@@ -57,6 +57,11 @@ public class GameManager : MonoBehaviour
         //show game over UI
         UIFrame.Show<UIGameOver>();
     }
+
+    #region game settings
+    public GameSetting gameSetting =new GameSetting();
+
+    #endregion
 }
 public enum GameOverReason
 {
@@ -64,4 +69,9 @@ public enum GameOverReason
     Fallen = 1,
     OverTime = 2,
     Died = 3,
+}
+
+public class GameSetting
+{
+    public float musicVolume = 1.0f;
 }

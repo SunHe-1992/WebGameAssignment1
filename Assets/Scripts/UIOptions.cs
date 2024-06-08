@@ -11,10 +11,7 @@ namespace Feif.UI
     public class UIOptionsData : UIData
     {
     }
-    public class GameSetting
-    {
-        public float musicVolume = 1.0f;
-    }
+
     [WindowLayer]
     public class UIOptions : UIComponent<UIOptionsData>
     {
@@ -22,7 +19,6 @@ namespace Feif.UI
         [SerializeField] private Text txtTitle;
         [SerializeField] private Slider volumeSlider;
 
-        GameSetting gameSetting;
         string settingFileName = "Settings.json";
         string filePath;
         protected override Task OnCreate()
@@ -82,7 +78,7 @@ namespace Feif.UI
                     string jsonString = File.ReadAllText(filePath);
 
                     // Deserialize the JSON string back into a PlayerData object
-                    this.gameSetting = JsonUtility.FromJson<GameSetting>(jsonString);
+                    GameManager.Instance.gameSetting = JsonUtility.FromJson<GameSetting>(jsonString);
                     Debug.Log("File loaded from: " + filePath);
 
                 }
@@ -95,19 +91,19 @@ namespace Feif.UI
             {
                 Debug.LogError("Failed to load file: " + e.Message);
             }
-            if (this.gameSetting == null)
-                this.gameSetting = new GameSetting();
-            this.volumeSlider.value = gameSetting.musicVolume;
+            if (GameManager.Instance.gameSetting == null)
+                GameManager.Instance.gameSetting = new GameSetting();
+            this.volumeSlider.value = GameManager.Instance.gameSetting.musicVolume;
         }
         void SaveSettings()
         {
             //music volume
-            gameSetting.musicVolume = volumeSlider.value;
+            GameManager.Instance.gameSetting.musicVolume = volumeSlider.value;
             //settingFileName
             try
             {
                 // Serialize the playerData object to a JSON string
-                string jsonString = JsonUtility.ToJson(gameSetting);
+                string jsonString = JsonUtility.ToJson(GameManager.Instance.gameSetting);
                 // Write the JSON string to a file
                 File.WriteAllText(filePath, jsonString);
                 Debug.Log("File saved to: " + filePath);
