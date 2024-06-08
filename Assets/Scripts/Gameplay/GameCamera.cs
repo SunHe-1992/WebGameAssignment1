@@ -17,6 +17,8 @@ public class GameCamera : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.running == false)
+            return;
         if (campos != null)
         {
             Vector3 targetPos = campos.transform.position;

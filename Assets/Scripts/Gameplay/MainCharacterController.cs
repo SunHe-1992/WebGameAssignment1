@@ -17,6 +17,10 @@ public class MainCharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.running == false)
+        {
+            return;
+        }
         ProcessRotate();
         ProcessMove();
     }

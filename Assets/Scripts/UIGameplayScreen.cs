@@ -15,6 +15,9 @@ namespace Feif.UI
     public class UIGameplayScreen : UIComponent<UIGameplayScreenData>
     {
         [SerializeField] private Text txtTitle;
+        [SerializeField] private Text txtHUD;
+        [SerializeField] private Button btnPause;
+        [SerializeField] private Button btnResume;
 
         protected override Task OnCreate()
         {
@@ -47,6 +50,40 @@ namespace Feif.UI
         {
         }
 
+        [UGUIButtonEvent("@BtnPause")]
+        protected void OnClickBtnPause()
+        {
+            GameManager.Instance.ToggleRunning();
+        }
+        [UGUIButtonEvent("@BtnResume")]
+        protected void OnClickBtnResume()
+        {
+            GameManager.Instance.ToggleRunning();
+        }
+        private void Update()
+        {
+            RefreshHUD();
+        }
 
+
+        void RefreshHUD()
+        {
+            string hud = "";
+            string strRun = "";
+            bool running = GameManager.Instance.running;
+            this.btnPause.gameObject.SetActive(running);
+            this.btnResume.gameObject.SetActive(!running);
+            if (running)
+            {
+                strRun = "game running";
+            }
+            else
+            {
+                strRun = "game paused";
+            }
+
+            hud += strRun;
+            this.txtHUD.text = hud;
+        }
     }
 }
