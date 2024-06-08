@@ -6,11 +6,12 @@ public class MainCharacterController : MonoBehaviour
 {
     public Camera mainCam;
     Rigidbody rb;
-
+    Animator animator;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        animator = GetComponent<Animator>();
         mainCam = Camera.main;
     }
 
@@ -38,21 +39,17 @@ public class MainCharacterController : MonoBehaviour
     {
         float axisH = Input.GetAxis("Horizontal");
         float axisV = Input.GetAxis("Vertical");
+        animator.SetFloat("moveH", axisH);
+        animator.SetFloat("moveV", axisV);
         if (isAxisSmall(axisV) && isAxisSmall(axisH))
         {
+            animator.SetBool("noMove", true);
             rb.velocity = Vector3.zero;
         }
         else
         {
-            //var camForward = mainCam.transform.forward;
-            //Vector3 cameraForward = camForward;
-            //cameraForward.y = 0f;
-            //cameraForward = cameraForward.normalized;
-            //Vector3 vectForward = axisV * cameraForward * Time.deltaTime;
+            animator.SetBool("noMove", false);
 
-            //Vector3 cameraRight = mainCam.transform.right.normalized;
-            //Vector3 vectRight = axisH * cameraRight * Time.deltaTime;
-            //rb.AddForce(addForceSpeed * (vectForward + vectRight));
 
             Vector3 forwardVect = this.transform.forward * axisV;
             Vector3 rightVect = this.transform.right * axisH;
