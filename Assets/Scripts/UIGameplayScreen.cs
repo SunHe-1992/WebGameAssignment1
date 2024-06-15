@@ -72,6 +72,9 @@ namespace Feif.UI
         void RefreshHUD()
         {
             var gm = GameManager.Instance;
+            if (gm == null) return;
+            var hero = gm.heroCtrl;
+            if (hero == null) return;
             string hud = "";
             string strRun = "";
             bool running = GameManager.Instance.running;
@@ -89,6 +92,7 @@ namespace Feif.UI
             string formattedTime = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
 
             string scoreStr = $"Score: {gm.score}/{gm.scoreMax}";
+
 
             hud += strRun + "\n";
             hud += formattedTime + "\n";

@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class MainCharacterController : MonoBehaviour
 {
-    public Camera mainCam;
     Rigidbody rb;
     Animator animator;
+    CharacterController ctrl;
+    private void Awake()
+    {
+    }
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.heroCtrl = this;
+        ctrl = this.GetComponent<CharacterController>();
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
-        mainCam = Camera.main;
         ResetHP();
     }
 
@@ -23,14 +27,17 @@ public class MainCharacterController : MonoBehaviour
         {
             return;
         }
-        ProcessRotate();
-        ProcessMove();
+        //ProcessRotate();
+        //ProcessMove();
         CheckFallen();
 
-        if (Input.GetKeyUp(KeyCode.Space))
-        {
-            DoJump();
-        }
+        //if (Input.GetKeyUp(KeyCode.Space))
+        //{
+        //    //DoJump();
+        //}
+        //this.isGrounded = CheckGrounded();
+
+        // ProcessJump();
     }
 
     public float addForceSpeed = 400f;
@@ -55,7 +62,8 @@ public class MainCharacterController : MonoBehaviour
             Vector3 forwardVect = this.transform.forward * axisV;
             Vector3 rightVect = this.transform.right * axisH;
             Vector3 moveVect = (forwardVect + rightVect) * Time.deltaTime * moveSpeed;
-            this.transform.position += moveVect;
+            //this.transform.position += moveVect;
+            ctrl.Move(moveVect);
         }
     }
     bool isAxisSmall(float value)
@@ -93,14 +101,6 @@ public class MainCharacterController : MonoBehaviour
     }
 
 
-    public float jumpSpeed = 1000f;
-    void DoJump()
-    {
-        if (this.transform.position.y < 0.5f)
-        {
-            rb.AddForce(jumpSpeed * this.transform.up);
-        }
-    }
 
     #region Health system
     public float HP = 0;

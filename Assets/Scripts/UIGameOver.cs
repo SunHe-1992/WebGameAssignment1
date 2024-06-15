@@ -53,7 +53,7 @@ namespace Feif.UI
         [UGUIButtonEvent("@BtnMainMenu")]
         protected void OnClickBtnMainMenu()
         {
-            SceneManager.LoadScene("TestScene");
+            SceneManager.LoadScene("TestScene", LoadSceneMode.Single);
             UIFrame.Show<UIMenuScreen>();
         }
 
