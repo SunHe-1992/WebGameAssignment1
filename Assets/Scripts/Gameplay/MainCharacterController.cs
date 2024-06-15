@@ -109,5 +109,52 @@ public class MainCharacterController : MonoBehaviour
     {
         this.HP = HPMax;
     }
+    void AddHP(float value)
+    {
+        this.HP += value;
+        ChechHP();
+    }
+    void ChechHP()
+    {
+        if (this.HP <= 0)
+        {
+            //trigger game over
+            GameManager.Instance.GameOver(GameOverReason.Died);
+        }
+        if (this.HP > HPMax)
+        {
+            HP = HPMax;
+        }
+    }
+    #endregion
+
+    #region collision events
+
+    void OnCollisionEnter(Collision collision)
+    {
+        //Debug.Log("Collision Entered with " + collision.gameObject.name);
+        var item = collision.gameObject.GetComponent<InteractiveItem>();
+        if (item != null)
+        {
+            item.MakeInvisible();
+            switch (item.itemType)
+            {
+                case ItemType.TimePotion:
+                    GameManager.Instance.AddTime(10);
+                    break;
+                case ItemType.Coin:
+                    GameManager.Instance.AddCoin(10);
+                    break;
+                case ItemType.Score:
+                    GameManager.Instance.AddScore(5);
+                    break;
+                case ItemType.HealthPotion: AddHP(10); break;
+                case ItemType.ToxicPotion: AddHP(-10); break;
+            }
+        }
+
+
+
+    }
     #endregion
 }

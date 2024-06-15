@@ -9,8 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     public GameOverReason gameOverReason = GameOverReason.Default;
     public MainCharacterController heroCtrl;
-    public int score = 0;
-    public readonly int scoreMax = 100;
+
     /// <summary>
     /// time limit
     /// </summary>
@@ -79,8 +78,38 @@ public class GameManager : MonoBehaviour
             GameOver(GameOverReason.OverTime);
         }
     }
+    public void AddTime(float value)
+    {
+        this.timer += value;
+    }
     #region game settings
     public GameSetting gameSetting = new GameSetting();
+
+    #endregion
+    #region game score
+    public int score = 0;
+    public readonly int scoreMax = 100;
+    public void AddScore(int value)
+    {
+        this.score += value;
+        CheckScore();
+    }
+    void CheckScore()
+    {
+        if (this.score >= scoreMax)
+        {
+            GameOver(GameOverReason.Win);
+        }
+    }
+    #endregion
+
+    #region game coins
+
+    public int coin = 0;
+    public void AddCoin(int value)
+    {
+        this.coin += value;
+    }
 
     #endregion
 }
@@ -90,6 +119,7 @@ public enum GameOverReason
     Fallen = 1,
     OverTime = 2,
     Died = 3,
+    Win,
 }
 
 public class GameSetting
