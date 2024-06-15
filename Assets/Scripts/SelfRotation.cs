@@ -14,6 +14,7 @@ public class SelfRotation : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.running == false) return;
         this.transform.Rotate(rotate);
     }
 }

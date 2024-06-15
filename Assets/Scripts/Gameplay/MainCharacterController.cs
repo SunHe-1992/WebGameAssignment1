@@ -13,6 +13,7 @@ public class MainCharacterController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         mainCam = Camera.main;
+        ResetHP();
     }
 
     // Update is called once per frame
@@ -100,4 +101,13 @@ public class MainCharacterController : MonoBehaviour
             rb.AddForce(jumpSpeed * this.transform.up);
         }
     }
+
+    #region Health system
+    public float HP = 0;
+    public float HPMax = 100;
+    void ResetHP()
+    {
+        this.HP = HPMax;
+    }
+    #endregion
 }

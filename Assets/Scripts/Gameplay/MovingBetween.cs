@@ -23,6 +23,8 @@ public class MovingBetween : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (GameManager.Instance.running == false) return;
+
         float dist = Vector3.Distance(movingObj.position, curTargetTrans.position);
         if (moveSpeed * Time.deltaTime > dist)
         {

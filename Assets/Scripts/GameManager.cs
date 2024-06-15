@@ -8,6 +8,9 @@ public class GameManager : MonoBehaviour
     public bool running = true;
     public static GameManager Instance;
     public GameOverReason gameOverReason = GameOverReason.Default;
+    public MainCharacterController heroCtrl;
+    public int score = 0;
+    public readonly int scoreMax = 100;
     /// <summary>
     /// time limit
     /// </summary>
@@ -26,6 +29,7 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         timer = timeLimit;
+        score = 0;
     }
 
     // Update is called once per frame

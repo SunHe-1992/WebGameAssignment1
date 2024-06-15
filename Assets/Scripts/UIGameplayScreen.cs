@@ -19,6 +19,7 @@ namespace Feif.UI
         [SerializeField] private Text txtHUD;
         [SerializeField] private Button btnPause;
         [SerializeField] private Button btnResume;
+        [SerializeField] private Slider sliderHP;
 
         protected override Task OnCreate()
         {
@@ -64,11 +65,13 @@ namespace Feif.UI
         private void Update()
         {
             RefreshHUD();
+            RefreshHP();
         }
 
 
         void RefreshHUD()
         {
+            var gm = GameManager.Instance;
             string hud = "";
             string strRun = "";
             bool running = GameManager.Instance.running;
@@ -82,14 +85,28 @@ namespace Feif.UI
             {
                 strRun = "game paused";
             }
-
-
             TimeSpan ts = TimeSpan.FromSeconds(GameManager.Instance.GetTimer());
             string formattedTime = string.Format("{0:D2}:{1:D2}", ts.Minutes, ts.Seconds);
 
+            string scoreStr = $"Score: {gm.score}/{gm.scoreMax}";
+
             hud += strRun + "\n";
             hud += formattedTime + "\n";
+            hud += scoreStr + "\n";
             this.txtHUD.text = hud;
+        }
+
+        void RefreshHP()
+        {
+            if (GameManager.Instance != null)
+            {
+                var hero = GameManager.Instance.heroCtrl;
+                if (hero != null)
+                {
+                    this.sliderHP.value = hero.HP / hero.HPMax;
+                }
+            }
+
         }
     }
 }
