@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class MusicManager : MonoBehaviour
 {
+    public static MusicManager Inst;
     AudioSource musicSource;
     private void Awake()
     {
+        Inst = this;
         DontDestroyOnLoad(this);
         musicSource = GetComponent<AudioSource>();
+    }
+    private void OnDestroy()
+    {
+        Inst = null;
     }
     // Start is called before the first frame update
     void Start()
@@ -26,4 +32,5 @@ public class MusicManager : MonoBehaviour
         }
 
     }
+   
 }

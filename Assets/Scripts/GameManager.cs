@@ -109,6 +109,7 @@ public class GameManager : MonoBehaviour
     public void AddCoin(int value)
     {
         this.coin += value;
+        SoundManager.Inst.PlayCoin();
     }
 
     #endregion

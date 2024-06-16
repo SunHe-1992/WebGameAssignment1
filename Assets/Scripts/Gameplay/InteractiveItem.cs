@@ -7,17 +7,20 @@ public class InteractiveItem : MonoBehaviour
 {
     [SerializeField]
     public ItemType itemType = ItemType.Default;
-
+    [SerializeField]
+    public bool hideAfterTrigger = true;
     public float regenerateTime = 5;
 
     public void MakeInvisible()
     {
-        this.gameObject.SetActive(false);
-        StartCoroutine(DelayShow());
+        if (hideAfterTrigger)
+        {
+            this.gameObject.SetActive(false);
+            DelayInvoker.Inst.DelayInvoke(DelayShow, regenerateTime);
+        }
     }
-    IEnumerator DelayShow()
+    void DelayShow()
     {
-        yield return new WaitForSeconds(regenerateTime);
         this.gameObject.SetActive(true);
     }
 }

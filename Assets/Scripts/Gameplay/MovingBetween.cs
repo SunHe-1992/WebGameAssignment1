@@ -10,6 +10,9 @@ public class MovingBetween : MonoBehaviour
     public float moveSpeed = 1f;
     private Transform curTargetTrans;
     int curIndex = -1;
+    private float waitTimer = 0;
+    [SerializeField]
+    public float waitTime = 2.0f;
     private void Awake()
     {
         FindNextTargetTrans();
@@ -24,7 +27,11 @@ public class MovingBetween : MonoBehaviour
     void Update()
     {
         if (GameManager.Instance.running == false) return;
-
+        if (waitTimer > 0)
+        {
+            waitTimer -= Time.deltaTime;
+            return;
+        }
         float dist = Vector3.Distance(movingObj.position, curTargetTrans.position);
         if (moveSpeed * Time.deltaTime > dist)
         {
@@ -38,6 +45,7 @@ public class MovingBetween : MonoBehaviour
         }
         if (CloseToTarget())
         {
+            waitTimer = waitTime;
             FindNextTargetTrans();
         }
     }
