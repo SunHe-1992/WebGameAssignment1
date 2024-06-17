@@ -7,8 +7,14 @@ public class MainCharacterController : MonoBehaviour
     Rigidbody rb;
     Animator animator;
     CharacterController ctrl;
+    public static MainCharacterController Inst;
     private void Awake()
     {
+        Inst = this;
+    }
+    private void OnDestroy()
+    {
+        Inst = null;
     }
     // Start is called before the first frame update
     void Start()
@@ -18,6 +24,7 @@ public class MainCharacterController : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         animator = GetComponent<Animator>();
         ResetHP();
+        ResetPosition();
     }
 
     // Update is called once per frame
@@ -101,11 +108,15 @@ public class MainCharacterController : MonoBehaviour
     }
 
 
+    public void ResetPosition()
+    {
 
+        this.transform.position = new Vector3(-15, 0, -29);
+    }
     #region Health system
     public float HP = 0;
     public float HPMax = 100;
-    void ResetHP()
+    public void ResetHP()
     {
         this.HP = HPMax;
     }

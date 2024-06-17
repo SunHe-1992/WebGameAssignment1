@@ -93,6 +93,11 @@ public class DelayInvoker : MonoBehaviour
 
     void Awake()
     {
+        if (instance_ != null)
+        {
+            Destroy(this);
+            return;
+        }
         instance_ = this;
         ActionDict = new Dictionary<Action, Coroutine>();
         DontDestroyOnLoad(this);

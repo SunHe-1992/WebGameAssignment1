@@ -8,6 +8,11 @@ public class MusicManager : MonoBehaviour
     AudioSource musicSource;
     private void Awake()
     {
+        if (Inst != null)
+        {
+            Destroy(this);
+            return;
+        }
         Inst = this;
         DontDestroyOnLoad(this);
         musicSource = GetComponent<AudioSource>();

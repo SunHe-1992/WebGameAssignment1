@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Feif.UIFramework;
 using UnityEngine;
 using Feif.UI;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public bool running = true;
@@ -13,10 +14,16 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// time limit
     /// </summary>
-    public float timeLimit = 5f;
-    float timer = 0;
+    public float timeLimit = 100;
+    float timer = 100;
     private void Awake()
     {
+        if (Instance != null)
+        {
+            Destroy(this);
+            return;
+        }
+        heroCtrl = MainCharacterController.Inst;
         Instance = this;
         DontDestroyOnLoad(this);
     }
@@ -27,8 +34,8 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timer = timeLimit;
-        score = 0;
+        this.score = 0;
+        this.timer = timeLimit;
     }
 
     // Update is called once per frame
@@ -113,6 +120,18 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+
+    public void GameRestart()
+    {
+        this.running = true;
+        this.score = 0;
+        this.timer = timeLimit;
+        if (heroCtrl != null)
+        {
+            heroCtrl.ResetPosition();
+            heroCtrl.ResetHP();
+        }
+    }
 }
 public enum GameOverReason
 {

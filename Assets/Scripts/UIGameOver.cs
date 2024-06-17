@@ -16,10 +16,13 @@ namespace Feif.UI
     public class UIGameOver : UIComponent<UIGameOverData>
     {
         [SerializeField] private Button btnMainMenu;
+        [SerializeField] private Button btnRestart;
         [SerializeField] private Text txtTitle;
 
         protected override Task OnCreate()
         {
+            //this.btnRestart.onClick.AddListener(this.OnClickBtnRestart);
+            //this.btnMainMenu.onClick.AddListener(this.OnClickBtnMainMenu);
             return Task.CompletedTask;
         }
 
@@ -40,6 +43,7 @@ namespace Feif.UI
         {
             string reason = GameManager.Instance.gameOverReason.ToString();
             this.txtTitle.text = "GAME OVER reason is " + reason;
+            DelayInvoker.Inst.DelayInvoke(OnClickBtnRestart, 3);
         }
 
         protected override void OnHide()
@@ -49,15 +53,40 @@ namespace Feif.UI
         protected override void OnDied()
         {
         }
+        private void Update()
+        {
+            if (Input.GetKeyUp(KeyCode.M))
+            {
+                this.OnClickBtnMainMenu();
+            }
+            if (Input.GetKeyUp(KeyCode.R))
+            {
+                this.OnClickBtnRestart();
+            }
+        }
 
         [UGUIButtonEvent("@BtnMainMenu")]
-        protected void OnClickBtnMainMenu()
+        public void OnClickBtnMainMenu()
         {
+            Debug.Log("OnClickBtnMainMenu");
+            HideThisUI();
             SceneManager.LoadScene("TestScene", LoadSceneMode.Single);
             UIFrame.Show<UIMenuScreen>();
         }
 
+        [UGUIButtonEvent("@BtnRestart")]
+        public void OnClickBtnRestart()
+        {
+            Debug.Log("OnClickBtnRestart");
+            HideThisUI();
+            GameManager.Instance.GameRestart();
+            UIFrame.Show<UIGameplayScreen>();
 
+        }
+        void HideThisUI()
+        {
+            UIFrame.Hide(this);
+        }
 
     }
 }

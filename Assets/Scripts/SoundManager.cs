@@ -11,6 +11,11 @@ public class SoundManager : MonoBehaviour
     AudioSource soundSource;
     private void Awake()
     {
+        if (Inst != null)
+        {
+            Destroy(this);
+            return;
+        }
         Inst = this;
         DontDestroyOnLoad(this);
         soundSource = GetComponent<AudioSource>();
