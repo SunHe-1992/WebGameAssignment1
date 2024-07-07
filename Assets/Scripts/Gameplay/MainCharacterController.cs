@@ -86,17 +86,17 @@ public class MainCharacterController : MonoBehaviour
     public float sensivity = 1;
     void ProcessRotate()
     {
-        if (Input.GetMouseButtonUp(1))
-        {
-            //transform.Rotate(Vector3.zero * Time.deltaTime);
+        //if (Input.GetMouseButtonUp(1))
+        //{
+        //    //transform.Rotate(Vector3.zero * Time.deltaTime);
 
-        }
-        else if (Input.GetMouseButton(1))
-        {
-            float y = Input.GetAxis("Mouse X") * sensivity * Time.deltaTime;
-            rotationSpeed.y = y;
-            transform.Rotate(rotationSpeed * Time.deltaTime);
-        }
+        //}
+        //else if (Input.GetMouseButton(1))
+        //{
+        //    float y = Input.GetAxis("Mouse X") * sensivity * Time.deltaTime;
+        //    rotationSpeed.y = y;
+        //    transform.Rotate(rotationSpeed * Time.deltaTime);
+        //}
     }
     #endregion
 

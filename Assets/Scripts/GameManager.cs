@@ -132,6 +132,14 @@ public class GameManager : MonoBehaviour
             heroCtrl.ResetHP();
         }
     }
+
+    public bool GetIsMobile()
+    {
+        bool result = Application.isMobilePlatform;
+        //test 
+        result = true;
+        return result;
+    }
 }
 public enum GameOverReason
 {

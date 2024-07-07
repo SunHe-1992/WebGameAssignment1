@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Feif.UIFramework;
 using System;
+using Terresquall;
 
 namespace Feif.UI
 {
@@ -20,7 +21,7 @@ namespace Feif.UI
         [SerializeField] private Button btnPause;
         [SerializeField] private Button btnResume;
         [SerializeField] private Slider sliderHP;
-
+        [SerializeField] VirtualJoystick joystick;
         protected override Task OnCreate()
         {
             DontDestroyOnLoad(this);
@@ -97,6 +98,16 @@ namespace Feif.UI
             hud += strRun + "\n";
             hud += formattedTime + "\n";
             hud += scoreStr + "\n";
+
+            if (Input.touchCount > 0)
+            {
+                var touch = Input.GetTouch(0);
+                Vector2 touchPositionPercentage = new Vector2(
+             (touch.position.x / Screen.width) * 100,
+             (touch.position.y / Screen.height) * 100
+         );
+                hud += $"touch pos = {touch.position} pct={touchPositionPercentage}\n";
+            }
             this.txtHUD.text = hud;
         }
 
@@ -111,6 +122,19 @@ namespace Feif.UI
                 }
             }
 
+        }
+        void SetControlTips()
+        {
+            string tip =null;
+            if(GameManager.Instance.GetIsMobile())
+            {
+                tip = "move with joystick \r\ncontrol view by dragging on right screen";
+            }
+            else
+            {
+                tip = "move: WASD\r\nhold right mouse to move camera";
+            }
+            this.txtTitle.text = "";
         }
     }
 }
