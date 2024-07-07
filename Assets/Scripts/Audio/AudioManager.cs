@@ -51,7 +51,7 @@ public class AudioManager : MonoBehaviour
             print($"Sound: {name} not found");
             return;
         }
-
+        sound.source.Stop();
         sound.source.Play();
         print("Play sound " + name);
     }

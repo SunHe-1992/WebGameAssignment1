@@ -14,7 +14,6 @@ public class MusicManager : MonoBehaviour
             return;
         }
         Inst = this;
-        DontDestroyOnLoad(this);
         musicSource = GetComponent<AudioSource>();
     }
     private void OnDestroy()
