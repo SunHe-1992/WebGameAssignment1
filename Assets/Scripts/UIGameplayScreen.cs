@@ -20,6 +20,7 @@ namespace Feif.UI
         [SerializeField] private Text txtHUD;
         [SerializeField] private Button btnPause;
         [SerializeField] private Button btnResume;
+        [SerializeField] private Button btnJump;
         [SerializeField] private Slider sliderHP;
         [SerializeField] VirtualJoystick joystick;
         protected override Task OnCreate()
@@ -62,6 +63,19 @@ namespace Feif.UI
         protected void OnClickBtnResume()
         {
             GameManager.Instance.ToggleRunning();
+        }
+        [UGUIButtonEvent("@BtnJump")]
+        protected void OnClickBtnJump()
+        {
+            //test jump
+            Debug.Log("jump");
+            MoveBehaviour.clickJump = true;
+            DelayInvoker.Inst.DelayInvoke(SetJumpState, 0.2f);
+        }
+        void SetJumpState()
+        {
+            MoveBehaviour.clickJump = false;
+
         }
         private void Update()
         {
@@ -108,6 +122,8 @@ namespace Feif.UI
          );
                 hud += $"touch pos = {touch.position} pct={touchPositionPercentage}\n";
             }
+
+            hud += $"click Jump : {MoveBehaviour.clickJump}";
             this.txtHUD.text = hud;
         }
 
@@ -125,8 +141,8 @@ namespace Feif.UI
         }
         void SetControlTips()
         {
-            string tip =null;
-            if(GameManager.Instance.GetIsMobile())
+            string tip = null;
+            if (GameManager.Instance.GetIsMobile())
             {
                 tip = "move with joystick \r\ncontrol view by dragging on right screen";
             }
