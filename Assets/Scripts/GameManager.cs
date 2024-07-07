@@ -18,14 +18,17 @@ public class GameManager : MonoBehaviour
     float timer = 100;
     private void Awake()
     {
-        if (Instance != null)
+        if (Instance == null)
         {
-            Destroy(this);
+            heroCtrl = MainCharacterController.Inst;
+            Instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            Destroy(gameObject);
             return;
         }
-        heroCtrl = MainCharacterController.Inst;
-        Instance = this;
-        DontDestroyOnLoad(this);
     }
     private void OnDestroy()
     {
@@ -69,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         this.gameOverReason = reason;
         PauseGame();
-        UIFrame.Hide<UIGameplayScreen>();
+        UIFrame.Hide();
         //show game over UI
         UIFrame.Show<UIGameOver>();
     }
@@ -116,7 +119,7 @@ public class GameManager : MonoBehaviour
     public void AddCoin(int value)
     {
         this.coin += value;
-        SoundManager.Inst.PlayCoin();
+        AudioManager.Inst.Play("coin");
     }
 
     #endregion
@@ -137,7 +140,7 @@ public class GameManager : MonoBehaviour
     {
         bool result = Application.isMobilePlatform;
         //test 
-        result = true;
+        //result = true;
         return result;
     }
 }

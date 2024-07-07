@@ -95,7 +95,7 @@ public class DelayInvoker : MonoBehaviour
     {
         if (instance_ != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
         instance_ = this;

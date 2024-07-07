@@ -85,7 +85,7 @@ namespace Feif.UI
         }
         void HideThisUI()
         {
-            UIFrame.Hide(this);
+            UIFrame.Hide();
         }
 
     }

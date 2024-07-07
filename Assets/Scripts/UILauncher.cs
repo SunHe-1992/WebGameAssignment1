@@ -15,7 +15,18 @@ namespace Feif
     public class UILauncher : MonoBehaviour
     {
         [SerializeField] private GameObject stuckPanel;
-
+        static UILauncher Inst;
+        private void Awake()
+        {
+            if (Inst == null)
+            {
+                Inst = this;
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+        }
         // 使用UIFrame时要先确保UIFrame的Awake已经执行过了
         private void Start()
         {

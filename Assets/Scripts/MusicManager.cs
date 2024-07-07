@@ -10,7 +10,7 @@ public class MusicManager : MonoBehaviour
     {
         if (Inst != null)
         {
-            Destroy(this);
+            Destroy(gameObject);
             return;
         }
         Inst = this;

@@ -63,8 +63,6 @@ public class BasicBehaviour : MonoBehaviour
     void Update()
     {
         bool isMobile = GameManager.Instance.GetIsMobile();
-        //test 
-        isMobile = true;
         // Store the input axes.
         if (isMobile == false)
         {
