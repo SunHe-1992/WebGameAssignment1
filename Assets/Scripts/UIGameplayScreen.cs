@@ -46,6 +46,7 @@ namespace Feif.UI
 
         protected override void OnShow()
         {
+            SetControlTips();
         }
 
         protected override void OnHide()
