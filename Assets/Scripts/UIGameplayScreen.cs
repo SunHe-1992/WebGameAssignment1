@@ -17,6 +17,7 @@ namespace Feif.UI
     public class UIGameplayScreen : UIComponent<UIGameplayScreenData>
     {
         [SerializeField] private Text txtTitle;
+        [SerializeField] private Text txtHint;
         [SerializeField] private Text txtHUD;
         [SerializeField] private Button btnPause;
         [SerializeField] private Button btnResume;
@@ -88,6 +89,9 @@ namespace Feif.UI
         {
             RefreshHUD();
             RefreshHP();
+
+            if (txtHint != null)
+                txtHint.gameObject.SetActive(GameManager.Instance.running == false);
         }
 
 
