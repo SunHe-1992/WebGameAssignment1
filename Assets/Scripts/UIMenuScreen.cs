@@ -62,6 +62,8 @@ namespace Feif.UI
         [UGUIButtonEvent("@BtnLoadGame")]
         protected void OnClickBtnLoadGame()
         {
+            GameManager.Instance.loadSavedGame = true;
+            OnClickBtnNewGame();
         }
 
         [UGUIButtonEvent("@BtnOptions")]

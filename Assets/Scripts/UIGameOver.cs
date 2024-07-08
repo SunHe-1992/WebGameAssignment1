@@ -43,7 +43,7 @@ namespace Feif.UI
         {
             string reason = GameManager.Instance.gameOverReason.ToString();
             this.txtTitle.text = "GAME OVER reason is " + reason;
-            DelayInvoker.Inst.DelayInvoke(OnClickBtnRestart, 3);
+            //DelayInvoker.Inst.DelayInvoke(OnClickBtnRestart, 3);
         }
 
         protected override void OnHide()

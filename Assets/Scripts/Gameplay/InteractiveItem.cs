@@ -21,7 +21,8 @@ public class InteractiveItem : MonoBehaviour
     }
     void DelayShow()
     {
-        this.gameObject.SetActive(true);
+        if (this != null && this.gameObject != null)
+            this.gameObject.SetActive(true);
     }
 }
 public enum ItemType

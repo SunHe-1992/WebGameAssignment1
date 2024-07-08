@@ -4,6 +4,8 @@ using Feif.UIFramework;
 using UnityEngine;
 using Feif.UI;
 using UnityEngine.SceneManagement;
+using System.IO;
+
 public class GameManager : MonoBehaviour
 {
     public bool running = true;
@@ -16,6 +18,7 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public float timeLimit = 100;
     float timer = 100;
+    public bool loadSavedGame = false;
     private void Awake()
     {
         if (Instance == null)
@@ -32,13 +35,15 @@ public class GameManager : MonoBehaviour
     }
     private void OnDestroy()
     {
-        Instance = null;
     }
     // Start is called before the first frame update
     void Start()
     {
         this.score = 0;
         this.timer = timeLimit;
+        filePath = Application.persistentDataPath + "/" + settingFileName;
+        ResumeGame();
+
     }
 
     // Update is called once per frame
@@ -143,6 +148,91 @@ public class GameManager : MonoBehaviour
         //result = true;
         return result;
     }
+    public void SaveGame()
+    {
+        var gs = gameSetting;
+        if (heroCtrl != null)
+        {
+            gs.heroPos = heroCtrl.transform.position;
+            gs.HP = heroCtrl.HP;
+            gs.HPMax = heroCtrl.HPMax;
+        }
+        gs.score = score;
+        gs.timer = timer;
+        gs.coin = coin;
+        SaveSettings();
+    }
+    public void LoadGame()
+    {
+        LoadSettings();
+        var gs = gameSetting;
+        if (heroCtrl != null)
+        {
+            heroCtrl.transform.position = gs.heroPos;
+            heroCtrl.HP = gs.HP;
+            heroCtrl.HPMax = gs.HPMax;
+        }
+        score = gs.score;
+        coin = gs.coin;
+        timer = gs.timer;
+    }
+    string filePath;
+    string settingFileName = "Settings.json";
+
+    public void SaveSettings()
+    {
+        try
+        {
+            // Serialize the playerData object to a JSON string
+            string jsonString = JsonUtility.ToJson(GameManager.Instance.gameSetting);
+            // Write the JSON string to a file
+            File.WriteAllText(filePath, jsonString);
+            Debug.Log("File saved to: " + filePath);
+        }
+        catch (IOException e)
+        {
+            Debug.LogError("Failed to save file: " + e.Message);
+        }
+    }
+    public void DoLoadSavedGame()
+    {
+        if (loadSavedGame)
+        {
+            loadSavedGame = false;
+            StartCoroutine(DelayLoadGame());
+        }
+    }
+    IEnumerator DelayLoadGame()
+    {
+        yield return new WaitForSeconds(0.5f);
+        LoadGame();
+    }
+    public void LoadSettings()
+    {
+        try
+        {
+            if (File.Exists(filePath))
+            {
+                // Read the JSON string from the file
+                string jsonString = File.ReadAllText(filePath);
+
+                // Deserialize the JSON string back into a PlayerData object
+                GameManager.Instance.gameSetting = JsonUtility.FromJson<GameSetting>(jsonString);
+                Debug.Log("File loaded from: " + filePath);
+
+            }
+            else
+            {
+                Debug.LogWarning("File not found: " + filePath);
+            }
+        }
+        catch (IOException e)
+        {
+            Debug.LogError("Failed to load file: " + e.Message);
+        }
+        if (GameManager.Instance.gameSetting == null)
+            GameManager.Instance.gameSetting = new GameSetting();
+    }
 }
 public enum GameOverReason
 {
@@ -156,4 +246,10 @@ public enum GameOverReason
 public class GameSetting
 {
     public float musicVolume = 1.0f;
+    public Vector3 heroPos;
+    public float HP;
+    public float HPMax;
+    public int score;
+    public float timer;
+    public int coin;
 }

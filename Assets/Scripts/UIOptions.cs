@@ -19,13 +19,11 @@ namespace Feif.UI
         [SerializeField] private Text txtTitle;
         [SerializeField] private Slider volumeSlider;
 
-        string settingFileName = "Settings.json";
-        string filePath;
+
         protected override Task OnCreate()
         {
             DontDestroyOnLoad(this);
 
-            filePath = Application.persistentDataPath + "/" + settingFileName;
             LoadSettings();
             volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
 
@@ -70,48 +68,14 @@ namespace Feif.UI
 
         void LoadSettings()
         {
-            try
-            {
-                if (File.Exists(filePath))
-                {
-                    // Read the JSON string from the file
-                    string jsonString = File.ReadAllText(filePath);
-
-                    // Deserialize the JSON string back into a PlayerData object
-                    GameManager.Instance.gameSetting = JsonUtility.FromJson<GameSetting>(jsonString);
-                    Debug.Log("File loaded from: " + filePath);
-
-                }
-                else
-                {
-                    Debug.LogWarning("File not found: " + filePath);
-                }
-            }
-            catch (IOException e)
-            {
-                Debug.LogError("Failed to load file: " + e.Message);
-            }
-            if (GameManager.Instance.gameSetting == null)
-                GameManager.Instance.gameSetting = new GameSetting();
+            GameManager.Instance.LoadSettings();
             this.volumeSlider.value = GameManager.Instance.gameSetting.musicVolume;
         }
         void SaveSettings()
         {
             //music volume
             GameManager.Instance.gameSetting.musicVolume = volumeSlider.value;
-            //settingFileName
-            try
-            {
-                // Serialize the playerData object to a JSON string
-                string jsonString = JsonUtility.ToJson(GameManager.Instance.gameSetting);
-                // Write the JSON string to a file
-                File.WriteAllText(filePath, jsonString);
-                Debug.Log("File saved to: " + filePath);
-            }
-            catch (IOException e)
-            {
-                Debug.LogError("Failed to save file: " + e.Message);
-            }
+            GameManager.Instance.SaveSettings();
         }
     }
 }

@@ -25,6 +25,8 @@ public class MainCharacterController : MonoBehaviour
         animator = GetComponent<Animator>();
         ResetHP();
         ResetPosition();
+
+        GameManager.Instance.DoLoadSavedGame();
     }
 
     // Update is called once per frame

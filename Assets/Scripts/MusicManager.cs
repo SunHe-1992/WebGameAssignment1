@@ -8,17 +8,17 @@ public class MusicManager : MonoBehaviour
     AudioSource musicSource;
     private void Awake()
     {
-        if (Inst != null)
+        if (MusicManager.Inst == null)
+        {
+            MusicManager.Inst = this;
+            DontDestroyOnLoad(gameObject);
+            musicSource = GetComponent<AudioSource>();
+        }
+        else
         {
             Destroy(gameObject);
             return;
         }
-        Inst = this;
-        musicSource = GetComponent<AudioSource>();
-    }
-    private void OnDestroy()
-    {
-        Inst = null;
     }
     // Start is called before the first frame update
     void Start()
@@ -36,5 +36,5 @@ public class MusicManager : MonoBehaviour
         }
 
     }
-   
+
 }

@@ -21,6 +21,7 @@ namespace Feif.UI
         [SerializeField] private Button btnPause;
         [SerializeField] private Button btnResume;
         [SerializeField] private Button btnJump;
+        [SerializeField] private Button btnSaveGame;
         [SerializeField] private Slider sliderHP;
         [SerializeField] VirtualJoystick joystick;
         protected override Task OnCreate()
@@ -71,6 +72,12 @@ namespace Feif.UI
             Debug.Log("jump");
             MoveBehaviour.clickJump = true;
             DelayInvoker.Inst.DelayInvoke(SetJumpState, 0.2f);
+        }
+        [UGUIButtonEvent("@BtnSaveGame")]
+        protected void OnClickBtnSaveGame()
+        {
+            Debug.Log("BtnSaveGame");
+            GameManager.Instance.SaveGame();
         }
         void SetJumpState()
         {
