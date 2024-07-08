@@ -41,8 +41,8 @@ public class ControlsTutorial : MonoBehaviour
 		//	Cursor.lockState = CursorLockMode.Locked;
 		//	Cursor.visible = true;
 		//}
-		keyboardCommands.SetActive(Input.GetKey(KeyCode.F2));
-		gamepadCommands.SetActive(Input.GetKey(KeyCode.F3) || Input.GetKey(KeyCode.Joystick1Button7));
+		//keyboardCommands.SetActive(Input.GetKey(KeyCode.F2));
+		//gamepadCommands.SetActive(Input.GetKey(KeyCode.F3) || Input.GetKey(KeyCode.Joystick1Button7));
 	}
 
 	void OnGUI()
@@ -67,6 +67,7 @@ public class ControlsTutorial : MonoBehaviour
 	public void SetShowMsg(bool show)
 	{
 		showMsg = show;
+		showMsg = false;//debug turn off this
 	}
 
 	public void SetMessage(string msg)
