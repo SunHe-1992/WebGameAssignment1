@@ -248,7 +248,9 @@ public class UIService : ISingleton
         com.btn_use.onClick.Set(() =>
         {
             Debugger.Log("Use item id " + itemId);
-            ;
+            ClickSpawnItem(itemId);
+            TBSPlayer.RemoveItem(itemId, 1);
+            com.visible = false;
         });
 
         ShowItemComp(com.itemCom, itemId, itemCount);
@@ -256,7 +258,17 @@ public class UIService : ISingleton
         com.txt_detail.text = cfg.Des;
 
     }
-
+    void ClickSpawnItem(int itemId)
+    {
+        var cfg = ConfigManager.table.Item.Get(itemId);
+        if (cfg.EffectId == 101)
+        {
+            string mName = cfg.ModelName;
+            var heroPos = GameManager.Instance.heroCtrl.transform.position + new Vector3(0.5f, 0, 0);
+            var heroQua = GameManager.Instance.heroCtrl.transform.rotation;
+            ObjectPool.Inst.Spawn(mName, heroPos, heroQua);
+        }
+    }
     public void ShowItemComp(UI_InventoryItem mItem, int itemId, int itemCount)
     {
         mItem.txt_count.text = $"×{itemCount}";

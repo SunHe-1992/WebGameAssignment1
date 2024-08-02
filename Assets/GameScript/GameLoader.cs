@@ -62,7 +62,7 @@ public class GameLoader : MonoBehaviour
         UIAnimationService.Init();
         UIService.Init();
         TBSPlayer.SetUserDetail();
-
+        CreateModelPool();
         BindFGUI.BindAll();//fairy code bind 
         LoadData();//load json configs
 
@@ -141,5 +141,12 @@ public class GameLoader : MonoBehaviour
             FUIManager.Inst.ShowUI<UIPage_MenuScreen>(FUIDef.FWindow.MenuScreenUI);
             DontDestroyOnLoad(StageCamera.main);
         }
+    }
+
+    void CreateModelPool()
+    {
+        var obj = new GameObject("ObjectPool");
+        obj.AddComponent<ObjectPool>();
+
     }
 }
