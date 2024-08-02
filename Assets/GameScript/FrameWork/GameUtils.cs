@@ -246,10 +246,7 @@ public class GameUtilFunc
             return;
         }
 
-        if (Boot.GamePlayMode == YooAsset.EPlayMode.EditorSimulateMode)
-        {
-            return;
-        }
+         
 
         // 在网络模式下，因为加载的是其他平台的资源，shader会出错，需要针对编辑器修正
         Debugger.Log("Fix Editor Shader");

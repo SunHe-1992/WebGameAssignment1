@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Playables;
-using YooAsset;
+
 using System;
-using YooAsset;
+
 using UnityEngine.SceneManagement;
-using UniFramework.Pooling;
+
 using UniFramework.Singleton;
 
 namespace SunHeTBS
@@ -207,10 +207,7 @@ namespace SunHeTBS
         private void OnEnterLoadMapPrefabState()
         {
             //load arrow cursor object
-            var arrowHandle = YooAssets.LoadAssetSync("Effect/Signs/CursorObj2D", typeof(GameObject));
-            var obj = GameObject.Instantiate(arrowHandle.AssetObject as GameObject);
-            obj.name = "CursorObj";
-            cursorCtrl = obj.AddComponent<CursorControl>();
+           
 
             SwitchDriveState(BattleDriveState.STATE_IN_BATTLE);
 
@@ -220,8 +217,7 @@ namespace SunHeTBS
         {
             //load pawns and art resources
             //
-            if (UniSpawner == null)
-                UniSpawner = UniPooling.CreateSpawner("DefaultPackage");
+          
 
             //spawner.CreateGameObjectPoolAsync()
             UniSingleton.StartCoroutine(CreateSpawners());
@@ -262,31 +258,7 @@ namespace SunHeTBS
 
         #region manage Game objects and pooling
         public CursorControl cursorCtrl;
-        /// <summary>
-        /// UniPooling's spawner
-        /// </summary>
-        public static Spawner UniSpawner;
-
-
-        Transform effTrans;
-        public void SpawnEffect(string effectPath, Transform givenTrans, float timer = -1f)
-        {
-            if (effTrans == null)
-            {
-                effTrans = new GameObject("effTrans").transform;
-                effTrans.localPosition = Vector3.zero;
-            }
-            Transform effFather = effTrans;
-            if (givenTrans != null)
-                effFather = givenTrans;
-
-            SpawnHandle handler = UniSpawner.SpawnSync(effectPath, effFather,
-                      effFather.position, Quaternion.identity);
-            if (timer > 0)
-            {
-                handler.SetSelfDestroy(timer);
-            }
-        }
+     
 
         public void LoadObjInScene()
         {

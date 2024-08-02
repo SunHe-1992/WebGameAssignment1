@@ -1,6 +1,6 @@
 ﻿using System;
 using UnityEngine;
-using YooAsset;
+
 
 public class BhvApplicationQuit : MonoBehaviour
 {
@@ -10,6 +10,6 @@ public class BhvApplicationQuit : MonoBehaviour
 	}
 	private void OnApplicationQuit()
 	{
-		YooAssets.Destroy();
+		 
 	}
 }

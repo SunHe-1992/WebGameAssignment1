@@ -2,7 +2,7 @@ using UniFramework.Singleton;
 using SunHeTBS;
 using PackageShared;
 using PackageBattle;
-using YooAsset;
+
 using UnityEngine.UI;
 using UnityEngine;
 using System.Collections.Generic;
@@ -125,16 +125,16 @@ public class UIService : ISingleton
         }
         else
         {
-            var handle = YooAssets.LoadAssetSync<Sprite>(name);
-            handle.Completed += (loadObj) =>
-            {
-                if (loadObj.AssetObject != null)
-                {
-                    sp = loadObj.AssetObject as Sprite;
-                    CacheSprite(name, sp);
-                    img.sprite = sp;
-                }
-            };
+            //var handle = YooAssets.LoadAssetSync<Sprite>(name);
+            //handle.Completed += (loadObj) =>
+            //{
+            //    if (loadObj.AssetObject != null)
+            //    {
+            //        sp = loadObj.AssetObject as Sprite;
+            //        CacheSprite(name, sp);
+            //        img.sprite = sp;
+            //    }
+            //};
         }
     }
     public Sprite LoadUnitySprite(string name)
@@ -146,15 +146,15 @@ public class UIService : ISingleton
         }
         else
         {
-            var handle = YooAssets.LoadAssetSync<Sprite>(name);
-            handle.Completed += (loadObj) =>
-            {
-                if (loadObj.AssetObject != null)
-                {
-                    sp = loadObj.AssetObject as Sprite;
-                    CacheSprite(name, sp);
-                }
-            };
+            //var handle = YooAssets.LoadAssetSync<Sprite>(name);
+            //handle.Completed += (loadObj) =>
+            //{
+            //    if (loadObj.AssetObject != null)
+            //    {
+            //        sp = loadObj.AssetObject as Sprite;
+            //        CacheSprite(name, sp);
+            //    }
+            //};
         }
         return sp;
     }
@@ -167,16 +167,16 @@ public class UIService : ISingleton
         }
         else
         {
-            var handle = YooAssets.LoadAssetSync<Sprite>(name);
-            handle.Completed += (loadObj) =>
-            {
-                if (loadObj.AssetObject != null)
-                {
-                    sp = loadObj.AssetObject as Sprite;
-                    CacheSprite(name, sp);
-                    gLoader.texture = new NTexture(sp);
-                }
-            };
+            //var handle = YooAssets.LoadAssetSync<Sprite>(name);
+            //handle.Completed += (loadObj) =>
+            //{
+            //    if (loadObj.AssetObject != null)
+            //    {
+            //        sp = loadObj.AssetObject as Sprite;
+            //        CacheSprite(name, sp);
+            //        gLoader.texture = new NTexture(sp);
+            //    }
+            //};
         }
 
     }
@@ -263,7 +263,8 @@ public class UIService : ISingleton
         var cfg = ConfigManager.table.Item.Get(itemId);
         mItem.ctrl_quality.selectedIndex = cfg.Quality;
         mItem.txt_name.text = cfg.Name;
-        mItem.iconLoader.url = $"ItemIcon/{cfg.Icon}";//load from Assets/Resorce 
+        string packName = FUIDef.FPackage.PackageBattle.ToString();
+        mItem.iconLoader.url = $"ui://{packName}/{cfg.Icon}";//load from Assets/Resorce 
     }
 
 }

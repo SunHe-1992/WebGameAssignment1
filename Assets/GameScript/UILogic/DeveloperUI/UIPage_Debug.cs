@@ -5,9 +5,9 @@ using FairyGUI;
 using PackageDebug;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using YooAsset;
+
 using SunHeTBS;
-using UniFramework.Pooling;
+
 using System.Collections;
 using UniFramework.Event;
 public class UIPage_Debug : FUIBase

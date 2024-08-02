@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.Networking;
-using YooAsset;
+
 using UniFramework.Singleton;
 public class FUIManager : ISingleton
 {
@@ -526,14 +526,13 @@ public class FUIManager : ISingleton
             //    RemoveOpeningWindow(winType);
             //    AfterLoad(cmd);
             //});
-            LoadDonePakage(win.packageName, () =>
-            {
-                UIPackage.AddPackage(win.packageName, LoadFunc);
-                loadedPackageDict.Add(win.packageName, true);
-                RemoveOpeningWindow(winType);
-                AfterLoad(cmd);
 
-            });
+            UIPackage.AddPackage(win.packageName, LoadFunc);
+            loadedPackageDict.Add(win.packageName, true);
+            RemoveOpeningWindow(winType);
+            AfterLoad(cmd);
+
+
         }
         return true;
     }
@@ -550,14 +549,14 @@ public class FUIManager : ISingleton
         //    if (unityaction != null)
         //        unityaction();
         //});
-        LoadDonePakage(package_name, () =>
-        {
-            UIPackage.AddPackage(package_name, LoadFunc);
-            loadedPackageDict.Add(package_name, true);
+        //LoadDonePakage(package_name, () =>
+        //{
+        UIPackage.AddPackage(package_name, LoadFunc);
+        loadedPackageDict.Add(package_name, true);
 
-            if (unityaction != null)
-                unityaction();
-        });
+        if (unityaction != null)
+            unityaction();
+        //});
     }
     #endregion
 
@@ -976,25 +975,25 @@ public class FUIManager : ISingleton
         else
             allSavePackageUI.Clear();
 
-        var allInfos = YooAssets.GetAssetInfos("fgui");
-        foreach (var info in allInfos)
-        {
-            var path = info.AssetPath;
-            var GetRealName = path.Split("/");
-            path = GetRealName[GetRealName.Length - 1];
+        //var allInfos = YooAssets.GetAssetInfos("fgui");
+        //foreach (var info in allInfos)
+        //{
+        //    var path = info.AssetPath;
+        //    var GetRealName = path.Split("/");
+        //    path = GetRealName[GetRealName.Length - 1];
 
-            var saveName = path.Split("_");
-            if (!allSavePackageUI.ContainsKey(saveName[0]))
-                allSavePackageUI.Add(saveName[0], new List<string>());
+        //    var saveName = path.Split("_");
+        //    if (!allSavePackageUI.ContainsKey(saveName[0]))
+        //        allSavePackageUI.Add(saveName[0], new List<string>());
 
 
-            var findName = info.AssetPath;
-            if (findName.StartsWith("Assets/GameRes/"))
-                findName = findName.Replace("Assets/GameRes/", "");
-            //findName = System.IO.Path.GetFileName(findName);
-            allSavePackageUI[saveName[0]].Add(findName);
+        //    var findName = info.AssetPath;
+        //    if (findName.StartsWith("Assets/GameRes/"))
+        //        findName = findName.Replace("Assets/GameRes/", "");
+        //    //findName = System.IO.Path.GetFileName(findName);
+        //    allSavePackageUI[saveName[0]].Add(findName);
 
-        }
+        //}
 
     }
 
@@ -1002,78 +1001,13 @@ public class FUIManager : ISingleton
 
     //加载完这个包
     Dictionary<string, int> loadingNum = null;
-    public void LoadDonePakage(string packageName, UnityAction unityAction)
-    {
-        if (allSavePackageUI.ContainsKey(packageName))
-        {
-            if (loadingNum == null)
-                loadingNum = new Dictionary<string, int>();
 
-            var packageNames = allSavePackageUI[packageName];
-            int allNum = packageNames.Count;
-            int numSet = 0;
-            loadingNum[packageName] = allNum;
-            foreach (var name in packageNames)
-            {
-                numSet = numSet + 1;
-                if (name.EndsWith(".bytes"))
-                    ResObjPoolTake<TextAsset>(name, new CacheBack()
-                    {
-                        customParam = packageName,
-                        customParam2 = name,
-                        customAction = unityAction,
-                        customActionBackCache = CallBack
-                    });
-                else if (name.EndsWith(".png"))
-                    ResObjPoolTake<Texture>(name, new CacheBack()
-                    {
-                        customParam = packageName,
-                        customParam2 = name,
-                        customAction = unityAction,
-                        customActionBackCache = CallBack
-                    });
-                else
-                    ResObjPoolTake<AudioClip>(name, new CacheBack()
-                    {
-                        customParam = packageName,
-                        customParam2 = name,
-                        customAction = unityAction,
-                        customActionBackCache = CallBack
-                    });
-            }
-        }
-        else
-        {
-            if (unityAction != null)
-                unityAction();
-            Debugger.LogError("没有这个包的ui啊" + packageName);
-        }
-
-    }
-
-    void CallBack(CacheBack callBack)
-    {
-        if (callBack == null)
-            return;
-
-        if (allLoadInfos == null)
-            allLoadInfos = new Dictionary<string, UnityEngine.Object>();
-        allLoadInfos[callBack.customParam2] = callBack.CacheBackObj;
-        Debugger.Log($"allLoadInfos insert asset {callBack.customParam2}");
-        var packageNameShow = (string)callBack.customParam;
-
-        loadingNum[packageNameShow] = loadingNum[packageNameShow] - 1;
-
-        if (callBack.customAction != null && loadingNum[packageNameShow] <= 0)
-            callBack.customAction();
-
-    }
 
     #region Res Load
     private static Dictionary<string, UnityEngine.Object> cacheObjInfos = new Dictionary<string, UnityEngine.Object>(); //缓存的数据
 
     /// 从池中拿取一个GameObject
-    static public void ResObjPoolTake<TObject>(string name, CacheBack cacheBack) where TObject : UnityEngine.Object
+    static public void ResObjPoolTake<TObject>(string name) where TObject : UnityEngine.Object
     {
         if (string.IsNullOrEmpty(name))
         {
@@ -1086,47 +1020,17 @@ public class FUIManager : ISingleton
 
         var bExist = cacheObjInfos.TryGetValue(poolName, out info);//寻找对应GameObject的池
 
-        if (cacheBack == null)
-        {
-            Debugger.LogError("回调有问题啊" + name);
-            return;
-        }
+
         if (bExist)
         {
             info = cacheObjInfos[poolName];
 
-            cacheBack.CacheBackObj = info;
-            if (cacheBack.customActionBackCache != null)
-                cacheBack.customActionBackCache(cacheBack);
+
         }
         else
         {
 
-            AssetHandle assetOperationHandle;
-            Debugger.Log($"1102 load {name}");
-            assetOperationHandle = YooAssets.LoadAssetSync<TObject>(name);
 
-
-            assetOperationHandle.cacheBack = new CacheBack();
-            assetOperationHandle.cacheBack.customParam = name;  //名称
-            assetOperationHandle.cacheBack.customParamObj = cacheBack; //cache的数据
-            assetOperationHandle.Completed += (aassetLoad) =>
-            {
-                if (aassetLoad.AssetObject == null)
-                {
-                    Debugger.LogError("获取的组件怎么会是空呢" + aassetLoad.cacheBack.customParam);
-                    return;
-                }
-
-                var getInfo = aassetLoad.AssetObject;
-
-                cacheObjInfos[aassetLoad.cacheBack.customParam] = getInfo;
-
-                var CacheBack = (CacheBack)assetOperationHandle.cacheBack.customParamObj;
-                CacheBack.CacheBackObj = getInfo;
-                if (CacheBack.customActionBackCache != null)
-                    CacheBack.customActionBackCache(CacheBack);
-            };
 
         }
     }
@@ -1135,14 +1039,33 @@ public class FUIManager : ISingleton
 
     private object LoadFunc(string name, string extension, System.Type type, out DestroyMethod method)
     {
+        Debug.Log($"load func {name}  ext={extension}");
         method = DestroyMethod.None; //注意：这里一定要设置为None
         string location = $"FGUIRes/{name}{extension}";
         if (allLoadInfos.ContainsKey(location))
             return allLoadInfos[location];
         else
         {
-            Debugger.LogError("这个ui没找到啊" + name + "," + extension);
-            return null;
+            if (extension == ".bytes")
+            {
+                string path1 = "FGUIRes/" + name;
+                var obj = Resources.Load(path1) as TextAsset;
+                allLoadInfos[location] = obj;
+            }
+            else if (extension == ".png")
+            {
+                string path1 = "FGUIRes/" + name;
+                var obj = Resources.Load(path1) as Texture;
+                allLoadInfos[location] = obj;
+            }
+            else
+            {
+                string path1 = "FGUIRes/" + name;
+                var obj = Resources.Load(path1) as AudioClip;
+                allLoadInfos[location] = obj;
+            }
+
+            return allLoadInfos[location];
         }
     }
 

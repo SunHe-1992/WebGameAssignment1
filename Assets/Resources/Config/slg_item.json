@@ -1,0 +1,38 @@
+[
+  {
+    "ID": 100,
+    "Name": "IronRing",
+    "Quality": 1,
+    "Icon": "icon_400503",
+    "Des": "this is IronRing ",
+    "Price": 10,
+    "effectId": 0,
+    "useInCombat": false,
+    "useOutCombat": true,
+    "param1": 0
+  },
+  {
+    "ID": 101,
+    "Name": "BubbleTea",
+    "Quality": 2,
+    "Icon": "icon_100101",
+    "Des": "this is BubbleTea",
+    "Price": 20,
+    "effectId": 100,
+    "useInCombat": true,
+    "useOutCombat": true,
+    "param1": 80
+  },
+  {
+    "ID": 102,
+    "Name": "GoldCoin",
+    "Quality": 2,
+    "Icon": "icon_coin",
+    "Des": "GoldCoin",
+    "Price": 1,
+    "effectId": 0,
+    "useInCombat": false,
+    "useOutCombat": false,
+    "param1": 0
+  }
+]

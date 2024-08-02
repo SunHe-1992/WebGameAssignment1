@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using SimpleJSON;
-using YooAsset;
+
 using UnityEngine.Events;
 using UniFramework.Singleton;
 public class ConfigManager : ISingleton
@@ -70,19 +70,22 @@ public class ConfigManager : ISingleton
         allInfos.Clear();
 
         unityActionBack = unityAction;
+        //sunhetodo 
 
-        //��ȡdata������Щ����Ҫ�Լ�д������
-        var allInfosConfig = YooAssets.GetAssetInfos("config");
+        var allInfosConfig = Resources.LoadAll("Config");
+
         allNums = allInfosConfig.Length;
-        foreach (var info in allInfosConfig)
+        foreach (Object obj in allInfosConfig)
         {
-            var path = info.AssetPath;
-            var GetRealName = path.Split("/");
-            path = GetRealName[GetRealName.Length - 1];
+            LoadInfo(obj);
 
-            GetRealName = path.Split(".");
-            path = GetRealName[0];
-            LoadInfo(path);
+            //var path = info.AssetPath;
+            //var GetRealName = path.Split("/");
+            //path = GetRealName[GetRealName.Length - 1];
+
+            //GetRealName = path.Split(".");
+            //path = GetRealName[0];
+            //LoadInfo(path);
         }
     }
 
@@ -97,27 +100,34 @@ public class ConfigManager : ISingleton
         }
     }
 
+    public static void LoadInfo(Object obj)
+    {
+        string name = obj.name;
+        string json = obj.ToString();
+        allInfos.Add(name, JSON.Parse(json));
+        CheckLoadAll();
+    }
     public static void LoadInfo(string name)
     {
 
         string tableDataFile = $"Config/{name}";
 
-        AssetHandle assetOperationHandle;
+        //AssetHandle assetOperationHandle;
 
-        assetOperationHandle = YooAssets.LoadAssetSync<TextAsset>(tableDataFile);
+        //assetOperationHandle = YooAssets.LoadAssetSync<TextAsset>(tableDataFile);
 
-        assetOperationHandle.Completed += (assetLoad) =>
-        {
-            if (assetLoad == null)
-            {
-                CheckLoadAll();
-                return;
-            }
+        //assetOperationHandle.Completed += (assetLoad) =>
+        //{
+        //    if (assetLoad == null)
+        //    {
+        //        CheckLoadAll();
+        //        return;
+        //    }
 
-            var objText = (TextAsset)assetLoad.AssetObject;
-            allInfos.Add(name, JSON.Parse(objText.text));
-            CheckLoadAll();
-        };
+        //    var objText = (TextAsset)assetLoad.AssetObject;
+        //    allInfos.Add(name, JSON.Parse(objText.text));
+        //    CheckLoadAll();
+        //};
 
     }
 

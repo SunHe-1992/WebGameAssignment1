@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.UIElements;
 using UniFramework.Singleton;
 using UniFramework.Animation;
-using UniFramework.Pooling;
+
 using UniFramework.Tween;
 //using UniFramework.Window;
-using YooAsset;
+
 using SunHeTBS;
+using UniFramework.Event;
+using UniFramework.Module;
 public class GameLoader : MonoBehaviour
 {
     public static GameLoader Instance = null;
@@ -23,6 +25,14 @@ public class GameLoader : MonoBehaviour
     void Start()
     {
 
+        // 初始化事件系统
+        UniEvent.Initalize();
+
+        // 初始化管理系统
+        UniModule.Initialize();
+
+         
+        this.InitEnv();
     }
 
     // Update is called once per frame
@@ -32,13 +42,13 @@ public class GameLoader : MonoBehaviour
     }
     public void InitEnv()
     {
-        UniPooling.Initalize();
+       
 
         UniSingleton.Initialize();
 
         UniTween.Initalize();
 
-        SunHeTBS.BattleDriver.UniSpawner = UniPooling.CreateSpawner("DefaultPackage");
+     
         //init Uni singletons
         /*2d game demo */
         BattleDriver.Init();
@@ -83,23 +93,21 @@ public class GameLoader : MonoBehaviour
     UnityEngine.Font loadFontObj;
     private void LoadFontRes()
     {
-        var loadHeiti = YooAssets.LoadAssetAsync<UnityEngine.Font>("UIFont/OPPOSans-M");
+      
         loadFontObj = null;
         #region 字体加载
-        loadHeiti.Completed += (loadDown) =>
-        {
-            loadFontObj = (loadDown.AssetObject as UnityEngine.Font);
+     
 
             LoadFontDone();
-        };
+        
         #endregion
     }
     int needDoneAllNum;
     void LoadFontDone()
     {
         string fontNameStr = "OPPOSans-M";
-        DynamicFont fontHeiti = new DynamicFont(fontNameStr, loadFontObj);
-        FontManager.RegisterFont(fontHeiti, fontNameStr);
+        //DynamicFont fontHeiti = new DynamicFont(fontNameStr, loadFontObj);
+        //FontManager.RegisterFont(fontHeiti, fontNameStr);
 
         //preload ui packages
         List<FUIDef.FPackage> packageList = new List<FUIDef.FPackage>()
@@ -126,10 +134,7 @@ public class GameLoader : MonoBehaviour
 
         if (needDoneAllNum == 0)
         {
-            if (PatchWindow.Inst)
-            {
-                Destroy(PatchWindow.Inst);
-            }
+           
             AudioManager.Inst.Play("bgm1", true);
             //show test ui
             //FUIManager.Inst.ShowUI<UIPage_Debug>(FUIDef.FWindow.TestUI);
