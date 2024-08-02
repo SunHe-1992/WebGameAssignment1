@@ -22,6 +22,8 @@ public class UIPage_RunnerGame : FUIBase
         ui.btn_pause.onClick.Set(OnClickBtnPause);
         ui.btn_resume.onClick.Set(OnClickBtnResume);
         ui.btn_inventory.onClick.Set(btnInventory);
+        ui.btn_store.onClick.Set(btnStore);
+
     }
     protected override void OnShown()
     {
@@ -96,7 +98,10 @@ public class UIPage_RunnerGame : FUIBase
     {
         FUIManager.Inst.ShowUI<UIPage_Inventory>(FUIDef.FWindow.InventoryUI);
     }
-
+    void btnStore()
+    {
+        FUIManager.Inst.ShowUI<UIPage_Store>(FUIDef.FWindow.StoreUI);
+    }
     protected override void OnUpdate()
     {
         base.OnUpdate();

@@ -16,6 +16,7 @@ namespace PackageBattle
         public GButton btn_save;
         public UI_ProgressBar1 sliderHP;
         public GButton btn_inventory;
+        public GButton btn_store;
         public const string URL = "ui://fstosj6il1lhm8";
 
         public static UI_RunnerGameUI CreateInstance()
@@ -36,6 +37,7 @@ namespace PackageBattle
             btn_save = (GButton)GetChild("btn_save");
             sliderHP = (UI_ProgressBar1)GetChild("sliderHP");
             btn_inventory = (GButton)GetChild("btn_inventory");
+            btn_store = (GButton)GetChild("btn_store");
         }
     }
 }

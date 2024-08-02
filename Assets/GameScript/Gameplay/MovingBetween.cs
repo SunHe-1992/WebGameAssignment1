@@ -15,6 +15,10 @@ public class MovingBetween : MonoBehaviour
     public float waitTime = 2.0f;
     private void Awake()
     {
+        foreach (Transform t in transList)
+        {
+            t.gameObject.SetActive(false);
+        }
         FindNextTargetTrans();
 
     }
