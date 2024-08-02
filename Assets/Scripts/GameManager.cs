@@ -1,8 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using Feif.UIFramework;
 using UnityEngine;
-using Feif.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
 
@@ -77,9 +75,9 @@ public class GameManager : MonoBehaviour
     {
         this.gameOverReason = reason;
         PauseGame();
-        UIFrame.Hide();
+
         //show game over UI
-        UIFrame.Show<UIGameOver>();
+        FUIManager.Inst.ShowUI<UIPage_GameOverUI>(FUIDef.FWindow.GameOverUI);
     }
     public float GetTimer()
     {

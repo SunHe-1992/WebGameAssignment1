@@ -3,18 +3,13 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
-using Feif.UIFramework;
 using System;
 using Terresquall;
 
-namespace Feif.UI
+namespace SUNHEUI
 {
-    public class UIGameplayScreenData : UIData
-    {
-    }
 
-    [PanelLayer]
-    public class UIGameplayScreen : UIComponent<UIGameplayScreenData>
+    public class UIGameplayScreen
     {
         [SerializeField] private Text txtTitle;
         [SerializeField] private Text txtHint;
@@ -25,49 +20,16 @@ namespace Feif.UI
         [SerializeField] private Button btnSaveGame;
         [SerializeField] private Slider sliderHP;
         [SerializeField] VirtualJoystick joystick;
-        protected override Task OnCreate()
-        {
-            DontDestroyOnLoad(this);
-            return Task.CompletedTask;
-        }
 
-        protected override Task OnRefresh()
-        {
-            return Task.CompletedTask;
-        }
 
-        protected override void OnBind()
-        {
-        }
-
-        protected override void OnUnbind()
-        {
-        }
-
-        protected override void OnShow()
-        {
-            SetControlTips();
-        }
-
-        protected override void OnHide()
-        {
-        }
-
-        protected override void OnDied()
-        {
-        }
-
-        [UGUIButtonEvent("@BtnPause")]
         protected void OnClickBtnPause()
         {
             GameManager.Instance.ToggleRunning();
         }
-        [UGUIButtonEvent("@BtnResume")]
         protected void OnClickBtnResume()
         {
             GameManager.Instance.ToggleRunning();
         }
-        [UGUIButtonEvent("@BtnJump")]
         protected void OnClickBtnJump()
         {
             //test jump
@@ -75,7 +37,6 @@ namespace Feif.UI
             MoveBehaviour.clickJump = true;
             DelayInvoker.Inst.DelayInvoke(SetJumpState, 0.2f);
         }
-        [UGUIButtonEvent("@BtnSaveGame")]
         protected void OnClickBtnSaveGame()
         {
             Debug.Log("BtnSaveGame");
