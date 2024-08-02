@@ -249,6 +249,19 @@ public class GameManager : MonoBehaviour
             var ranMove = npc.AddComponent<RandomMovement>();
         }
     }
+    public void CreateAllNPC()
+    {
+        for (int i = 103; i <= 110; i++)
+        {
+            int itemId = i;
+            var cfg = ConfigManager.table.Item.Get(itemId);
+            CreateNPC(cfg.ModelName);
+        }
+    }
+    public void UnspawnAllNPC()
+    {
+        ObjectPool.Inst.UnspawnAll();
+    }
     #endregion
 }
 public enum GameOverReason

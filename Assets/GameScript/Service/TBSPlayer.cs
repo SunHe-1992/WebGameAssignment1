@@ -34,10 +34,13 @@ public static class TBSPlayer
         UserDetail.points.Add(new UserPoint(PointEnum.Gold, 3323));
         UserDetail.points.Add(new UserPoint(PointEnum.Gem, 8888));
 
+        int amount = 10;
         for (int i = 103; i <= 110; i++)
         {
-            InsertItem(i, 3);
+            InsertItem(i, amount);
         }
+        InsertItem(100, amount);
+        InsertItem(101, amount);
 
     }
     #region Point management

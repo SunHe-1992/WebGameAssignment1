@@ -35,6 +35,11 @@ public class UIPage_Inventory : FUIBase
 
         RefreshContent();
     }
+    public override void NotifyRefresh()
+    {
+        base.NotifyRefresh();
+        RefreshContent();
+    }
     protected override void OnHide()
     {
         base.OnHide();

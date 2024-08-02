@@ -53,12 +53,7 @@ public class UIPage_Debug : FUIBase
         //FUIManager.Inst.ShowUI<UIPage_Dialogue>(FUIDef.FWindow.DialoguePage, null, 1000);
         //ObjectPool.Inst.Spawn("Colobus", Vector3.zero, Quaternion.identity);
         //ObjectPool.Inst.UnspawnAll();
-        for (int i = 103; i <= 110; i++)
-        {
-            int itemId = i;
-            var cfg = ConfigManager.table.Item.Get(itemId);
-            GameManager.Instance.CreateNPC(cfg.ModelName);
-        }
+    
     }
 
 

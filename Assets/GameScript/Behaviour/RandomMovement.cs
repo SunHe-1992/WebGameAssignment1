@@ -11,14 +11,12 @@ public class RandomMovement : MonoBehaviour
 
     private State currentState;
     private Vector3 targetPosition;
-    private float moveSpeed = 2.0f; // Speed at which the object moves
+    private float moveSpeed = 15.0f; // Speed at which the object moves
     private float waitTime;
 
     void Start()
     {
-        SetNewTarget();
-        currentState = State.Moving;
-        StartCoroutine(StateMachine());
+        ChangeState(State.Moving);
     }
 
     void Update()
@@ -26,42 +24,43 @@ public class RandomMovement : MonoBehaviour
         if (currentState == State.Moving)
         {
             MoveToTarget();
+            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+            {
+                ChangeState(State.Waiting);
+            }
         }
     }
 
-    private IEnumerator StateMachine()
+    private void ChangeState(State newState)
     {
-        while (true)
+        StopAllCoroutines(); // Ensure no coroutines are running
+        currentState = newState;
+
+        switch (newState)
         {
-            switch (currentState)
-            {
-                case State.Moving:
-                    if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-                    {
-                        currentState = State.Waiting;
-                        waitTime = Random.Range(1f, 10f); // Random wait time between 1 and 9 seconds
-                        yield return new WaitForSeconds(waitTime);
-                        SetNewTarget();
-                        currentState = State.Moving;
-                    }
-                    break;
-                case State.Waiting:
-                    // Transition immediately out of wait is handled above
-                    yield break;
-            }
-            yield return null;
+            case State.Moving:
+                SetNewTarget();
+                break;
+            case State.Waiting:
+                waitTime = Random.Range(1f, 10f); // Random wait time between 1 and 9 seconds
+                StartCoroutine(WaitAndMove(waitTime));
+                break;
         }
+    }
+
+    private IEnumerator WaitAndMove(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        ChangeState(State.Moving);
     }
 
     private void MoveToTarget()
     {
-        // Move towards the target position
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
     }
 
     private void SetNewTarget()
     {
-        // Set target position to a random point around the current position within a radius of 5 units
-        targetPosition = transform.position + new Vector3(Random.Range(-5f, 5f), Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+        targetPosition = transform.position + new Vector3(Random.Range(-5f, 5f), 0f, Random.Range(-5f, 5f));
     }
 }

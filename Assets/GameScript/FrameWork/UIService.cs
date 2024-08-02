@@ -266,6 +266,14 @@ public class UIService : ISingleton
             string mName = cfg.ModelName;
             GameManager.Instance.CreateNPC(mName);
         }
+        else if (cfg.EffectId == 102) //summon all npc
+        {
+            GameManager.Instance.CreateAllNPC();
+        }
+        else if (cfg.EffectId == 103)
+        {
+            GameManager.Instance.UnspawnAllNPC();
+        }
     }
     public void ShowItemComp(UI_InventoryItem mItem, int itemId, int itemCount)
     {
