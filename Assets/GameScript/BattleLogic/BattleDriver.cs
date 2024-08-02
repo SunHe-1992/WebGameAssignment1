@@ -8,7 +8,6 @@ using YooAsset;
 using UnityEngine.SceneManagement;
 using UniFramework.Pooling;
 using UniFramework.Singleton;
-using UnityEditor.Rendering;
 
 namespace SunHeTBS
 {
@@ -170,24 +169,15 @@ namespace SunHeTBS
         string mapName = "GameScene";
         private void OnEnterLoadSceneState()
         {
-            SceneHandle handle = YooAssets.LoadSceneAsync("Scene/" + mapName, LoadSceneMode.Single);
-            handle.Completed += (scene) =>
-            {
-                //hide EditorGizmos
-                var gizmos = GameObject.Find("EditorGizmos");
-                if (gizmos != null)
-                {
-                    gizmos.SetActive(false);
-                }
-
-                //TBSMapService.Inst.InitMapCamera();
-                SwitchDriveState(BattleDriveState.STATE_PRELOAD_RES);
-
-            };
-
+          
+            SwitchDriveState(BattleDriveState.STATE_PRELOAD_RES);
+            //start 3d platform game
+            string mapName = "GameScene";
+            SceneManager.LoadScene(mapName);
+            BattleDriver.Inst.LoadObjInScene();
+            GameManager.Instance.GameRestart();
 
         }
-       
 
         private void OnEnterLoadMapDataState()
         {
@@ -235,9 +225,9 @@ namespace SunHeTBS
 
             //spawner.CreateGameObjectPoolAsync()
             UniSingleton.StartCoroutine(CreateSpawners());
-            this.director = GameObject.Find("PlayableDirector").GetComponent<PlayableDirector>();
+            //this.director = GameObject.Find("PlayableDirector").GetComponent<PlayableDirector>();
 
-            this.director.Play();
+            //this.director.Play();
         }
         IEnumerator CreateSpawners()
         {

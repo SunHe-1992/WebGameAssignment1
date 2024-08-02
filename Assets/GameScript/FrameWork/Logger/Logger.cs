@@ -122,23 +122,7 @@ public class Logger
         }
 
 #else
-        if (GlobalConfig.LogEnabled)
-        {
-            if (type == LogType.Exception)
-            {
-                try
-                {
-                    for (int i = 0; i < loggers.Count; i++)
-                    {
-                        loggers[i].LogFormat(LogType.Error, null, "{0}\r\nstackTrace:\r\n{1}", "Exception Received: " + condition, stackTrace);
-                    }
-                }
-                catch (Exception e)
-                {
-                    // Catch Any LogFormat caused Exception, to avoid dead loop in this case
-                }
-            }
-        }
+     
 #endif
     }
 
