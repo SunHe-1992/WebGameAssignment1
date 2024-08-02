@@ -69,6 +69,7 @@ public class ObjectPool : MonoBehaviour
         if (spawnedList == null)
             spawnedList = new List<GameObject>();
         spawnedList.Add(objectToSpawn);
+        objectToSpawn.SetActive(true);
 
         return objectToSpawn;
     }

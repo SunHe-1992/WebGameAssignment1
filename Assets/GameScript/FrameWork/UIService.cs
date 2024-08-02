@@ -244,7 +244,7 @@ public class UIService : ISingleton
     {
         com.visible = true;
         com.data = itemId;
-        //todo use item
+        //use item
         com.btn_use.onClick.Set(() =>
         {
             Debugger.Log("Use item id " + itemId);
@@ -264,9 +264,7 @@ public class UIService : ISingleton
         if (cfg.EffectId == 101)
         {
             string mName = cfg.ModelName;
-            var heroPos = GameManager.Instance.heroCtrl.transform.position + new Vector3(0.5f, 0, 0);
-            var heroQua = GameManager.Instance.heroCtrl.transform.rotation;
-            ObjectPool.Inst.Spawn(mName, heroPos, heroQua);
+            GameManager.Instance.CreateNPC(mName);
         }
     }
     public void ShowItemComp(UI_InventoryItem mItem, int itemId, int itemCount)

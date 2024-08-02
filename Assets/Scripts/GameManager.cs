@@ -231,6 +231,25 @@ public class GameManager : MonoBehaviour
         if (GameManager.Instance.gameSetting == null)
             GameManager.Instance.gameSetting = new GameSetting();
     }
+
+    #region map obj management
+    public Vector3 GenerateRandomPosition()
+    {
+        float x = Random.Range(1f, 8f);
+        float z = Random.Range(1f, 8f);
+        return new Vector3(x, 0f, z);
+    }
+    public void CreateNPC(string modelName)
+    {
+        var heroPos = heroCtrl.transform.position + GenerateRandomPosition();
+        var heroQua = heroCtrl.transform.rotation;
+        var npc = ObjectPool.Inst.Spawn(modelName, heroPos, heroQua);
+        if (!npc.TryGetComponent<RandomMovement>(out var comp))
+        {
+            var ranMove = npc.AddComponent<RandomMovement>();
+        }
+    }
+    #endregion
 }
 public enum GameOverReason
 {
