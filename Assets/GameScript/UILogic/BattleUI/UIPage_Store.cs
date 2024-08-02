@@ -103,6 +103,11 @@ public class UIPage_Store : FUIBase
         itemList = new List<UserItem>();
         itemList.Add(new UserItem(100, 333));
         itemList.Add(new UserItem(101, 555));
+
+        for (int i = 103; i <= 110; i++)
+        {
+            itemList.Add(new UserItem(i, 99));
+        }
     }
     #endregion
 

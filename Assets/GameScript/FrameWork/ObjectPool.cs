@@ -6,11 +6,13 @@ public class ObjectPool : MonoBehaviour
     public static ObjectPool Inst;
     public List<GameObject> prefabList;
     private Dictionary<string, Queue<GameObject>> poolDictionary;
+    private List<GameObject> spawnedList;
     private void Awake()
     {
         DontDestroyOnLoad(gameObject);
         Inst = this;
         LoadPrefabList(ModelPrefabManager.Inst.prefabList);
+
     }
     private void OnDestroy()
     {
@@ -64,6 +66,9 @@ public class ObjectPool : MonoBehaviour
 
         objectToSpawn.transform.position = position;
         objectToSpawn.transform.rotation = rotation;
+        if (spawnedList == null)
+            spawnedList = new List<GameObject>();
+        spawnedList.Add(objectToSpawn);
 
         return objectToSpawn;
     }
@@ -71,7 +76,7 @@ public class ObjectPool : MonoBehaviour
     public void Unspawn(GameObject objectToUnspawn)
     {
         string prefabName = objectToUnspawn.name.Replace("(Clone)", "").Trim();
-
+        prefabName = objectToUnspawn.name.Replace("instance_", "").Trim();
         if (!poolDictionary.ContainsKey(prefabName))
         {
             Debug.LogWarning("Prefab with name " + prefabName + " doesn't exist in the pool.");
@@ -81,5 +86,12 @@ public class ObjectPool : MonoBehaviour
 
         objectToUnspawn.SetActive(false);
         poolDictionary[prefabName].Enqueue(objectToUnspawn);
+    }
+    public void UnspawnAll()
+    {
+        foreach (var obj in spawnedList)
+        {
+            Unspawn(obj);
+        }
     }
 }

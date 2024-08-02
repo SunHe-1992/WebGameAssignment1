@@ -51,7 +51,8 @@ public class UIPage_Debug : FUIBase
     {
         OnBtnClose();
         //FUIManager.Inst.ShowUI<UIPage_Dialogue>(FUIDef.FWindow.DialoguePage, null, 1000);
-        ObjectPool.Inst.Spawn("Colobus", Vector3.zero, Quaternion.identity);
+        //ObjectPool.Inst.Spawn("Colobus", Vector3.zero, Quaternion.identity);
+        ObjectPool.Inst.UnspawnAll();
     }
 
 

@@ -76,6 +76,7 @@ public class UIPage_RunnerGame : FUIBase
     {
         Debug.Log("BtnSaveGame");
         GameManager.Instance.SaveGame();
+        TBSPlayer.SavePlayer();
     }
 
     protected void OnClickBtnPause()

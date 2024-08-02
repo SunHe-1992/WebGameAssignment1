@@ -276,7 +276,7 @@ public class UIService : ISingleton
         mItem.ctrl_quality.selectedIndex = cfg.Quality;
         mItem.txt_name.text = cfg.Name;
         string packName = FUIDef.FPackage.PackageBattle.ToString();
-        mItem.iconLoader.url = $"ui://{packName}/{cfg.Icon}";//load from Assets/Resorce 
+        mItem.iconLoader.url = $"ui://{packName}/{cfg.Icon}";//icon from fairy
     }
 
 }

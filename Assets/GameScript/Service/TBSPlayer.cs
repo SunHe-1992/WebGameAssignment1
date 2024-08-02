@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniFramework.Event;
 using SunHeTBS;
+using System.IO;
 public static class TBSPlayer
 {
     public static UserDetail UserDetail; //玩家的所有信息
@@ -137,6 +138,22 @@ public static class TBSPlayer
         UserDetail.myQuests.Add(questId, data);
     }
     #endregion
+
+    #region load and save
+
+    public static void SavePlayer()
+    {
+        string filePath = Application.persistentDataPath + "/player.json";
+        string jsonString = JsonUtility.ToJson(TBSPlayer.UserDetail);
+        // Write the JSON string to a file
+        File.WriteAllText(filePath, jsonString);
+        Debug.Log("File saved to: " + filePath);
+    }
+    public static void LoadPlayer()
+    {
+        ;
+    }
+    #endregion
 }
 public class UserDetail
 {
@@ -211,4 +228,5 @@ public class QuestEntry
         //    status = QuestStatus.Finished;
         //}
     }
+
 }
