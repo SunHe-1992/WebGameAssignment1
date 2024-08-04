@@ -35,6 +35,8 @@ namespace PackageBattle
             UIObjectFactory.SetPackageItemExtension(UI_ActionMenuComp.URL, typeof(UI_ActionMenuComp));
             UIObjectFactory.SetPackageItemExtension(UI_DamageIndicator.URL, typeof(UI_DamageIndicator));
             UIObjectFactory.SetPackageItemExtension(UI_DamagePane.URL, typeof(UI_DamagePane));
+            UIObjectFactory.SetPackageItemExtension(UI_AchievementUI.URL, typeof(UI_AchievementUI));
+            UIObjectFactory.SetPackageItemExtension(UI_AchievementItem.URL, typeof(UI_AchievementItem));
             UIObjectFactory.SetPackageItemExtension(UI_WorldPanel.URL, typeof(UI_WorldPanel));
             UIObjectFactory.SetPackageItemExtension(UI_BattlePanel.URL, typeof(UI_BattlePanel));
             UIObjectFactory.SetPackageItemExtension(UI_PawnSummaryBar.URL, typeof(UI_PawnSummaryBar));

@@ -166,9 +166,14 @@ public static class TBSPlayer
             {
                 data.status = QuestEntry.QuestStatus.Finished;
                 var cfg = ConfigManager.table.TbQuest.Get(data.questId);
-                int addGold = cfg.GoldCount;
+                int addGold = cfg.RewardGold;
                 TBSPlayer.UpdateGoldAmount(addGold);
                 UIService.Inst.ShowMoneyAnim(addGold);
+                if (cfg.AchievementID != 0)
+                {
+                    TBSPlayer.UserDetail.achievementList.Add(cfg.AchievementID);
+                    Debugger.Log("insert achi id = "+ cfg.AchievementID);
+                }
             }
 
         }
@@ -209,6 +214,7 @@ public class UserDetail
     public List<UserItem> items = new List<UserItem>();
     public Dictionary<int, QuestEntry> boardQuests = new Dictionary<int, QuestEntry>();
     public Dictionary<int, QuestEntry> myQuests = new Dictionary<int, QuestEntry>();
+    public List<int> achievementList = new List<int>();
 }
 public enum PointEnum
 {

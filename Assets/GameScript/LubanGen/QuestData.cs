@@ -24,7 +24,7 @@ public sealed partial class QuestData : Luban.BeanBase
         { if(!_buf["QuestType"].IsNumber) { throw new SerializationException(); }  QuestType = _buf["QuestType"]; }
         { if(!_buf["RewardGold"].IsNumber) { throw new SerializationException(); }  RewardGold = _buf["RewardGold"]; }
         { if(!_buf["Param1"].IsNumber) { throw new SerializationException(); }  Param1 = _buf["Param1"]; }
-        { if(!_buf["GoldCount"].IsNumber) { throw new SerializationException(); }  GoldCount = _buf["GoldCount"]; }
+        { if(!_buf["AchievementID"].IsNumber) { throw new SerializationException(); }  AchievementID = _buf["AchievementID"]; }
     }
 
     public static QuestData DeserializeQuestData(JSONNode _buf)
@@ -39,7 +39,7 @@ public sealed partial class QuestData : Luban.BeanBase
     public readonly int QuestType;
     public readonly int RewardGold;
     public readonly int Param1;
-    public readonly int GoldCount;
+    public readonly int AchievementID;
    
     public const int __ID__ = 220617612;
     public override int GetTypeId() => __ID__;
@@ -66,7 +66,7 @@ public sealed partial class QuestData : Luban.BeanBase
         + "QuestType:" + QuestType + ","
         + "RewardGold:" + RewardGold + ","
         + "Param1:" + Param1 + ","
-        + "GoldCount:" + GoldCount + ","
+        + "AchievementID:" + AchievementID + ","
         + "}";
     }
 }

@@ -18,6 +18,7 @@ namespace PackageBattle
         public GButton btn_inventory;
         public GButton btn_store;
         public GButton btn_quest;
+        public GButton btn_achi;
         public const string URL = "ui://fstosj6il1lhm8";
 
         public static UI_RunnerGameUI CreateInstance()
@@ -40,6 +41,7 @@ namespace PackageBattle
             btn_inventory = (GButton)GetChild("btn_inventory");
             btn_store = (GButton)GetChild("btn_store");
             btn_quest = (GButton)GetChild("btn_quest");
+            btn_achi = (GButton)GetChild("btn_achi");
         }
     }
 }

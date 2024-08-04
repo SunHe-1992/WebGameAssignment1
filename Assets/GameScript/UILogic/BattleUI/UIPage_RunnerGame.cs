@@ -24,6 +24,8 @@ public class UIPage_RunnerGame : FUIBase
         ui.btn_inventory.onClick.Set(btnInventory);
         ui.btn_store.onClick.Set(btnStore);
         ui.btn_quest.onClick.Set(btnQuest);
+        ui.btn_achi.onClick.Set(btnAchi);
+
 
     }
     protected override void OnShown()
@@ -108,6 +110,10 @@ public class UIPage_RunnerGame : FUIBase
     void btnQuest()
     {
         FUIManager.Inst.ShowUI<UIPage_QuestUI>(FUIDef.FWindow.QuestUI);
+    }
+    void btnAchi()
+    {
+        FUIManager.Inst.ShowUI<UIPage_AchievementUI>(FUIDef.FWindow.AchievementUI);
     }
     protected override void OnUpdate()
     {

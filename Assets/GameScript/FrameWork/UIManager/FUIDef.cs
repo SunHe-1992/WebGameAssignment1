@@ -27,6 +27,7 @@ public class FUIDef
         QuestUI,
         RunnerGameUI,
         GameOverUI,
+        AchievementUI,
     }
     /// <summary>
     /// package names
@@ -66,5 +67,6 @@ public class FUIDef
         {FWindow.QuestUI, FPackage.PackageBattle},
         {FWindow.RunnerGameUI, FPackage.PackageBattle},
         {FWindow.GameOverUI, FPackage.PackageBattle},
+        {FWindow.AchievementUI, FPackage.PackageBattle},
     };
 }

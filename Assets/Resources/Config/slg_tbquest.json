@@ -7,7 +7,7 @@
     "QuestType": 1,
     "RewardGold": 123,
     "Param1": 10,
-    "GoldCount": 132
+    "AchievementID": 0
   },
   {
     "ID": 1001,
@@ -17,7 +17,7 @@
     "QuestType": 2,
     "RewardGold": 345,
     "Param1": 1,
-    "GoldCount": 555
+    "AchievementID": 0
   },
   {
     "ID": 1014,
@@ -27,7 +27,7 @@
     "QuestType": 1014,
     "RewardGold": 234,
     "Param1": 1,
-    "GoldCount": 333
+    "AchievementID": 0
   },
   {
     "ID": 1015,
@@ -37,7 +37,7 @@
     "QuestType": 1015,
     "RewardGold": 99,
     "Param1": 10,
-    "GoldCount": 0
+    "AchievementID": 1
   },
   {
     "ID": 1016,
@@ -47,7 +47,7 @@
     "QuestType": 1016,
     "RewardGold": 99,
     "Param1": 5,
-    "GoldCount": 0
+    "AchievementID": 2
   },
   {
     "ID": 1017,
@@ -57,7 +57,7 @@
     "QuestType": 1017,
     "RewardGold": 99,
     "Param1": 10,
-    "GoldCount": 0
+    "AchievementID": 3
   },
   {
     "ID": 1018,
@@ -67,7 +67,7 @@
     "QuestType": 1018,
     "RewardGold": 99,
     "Param1": 2,
-    "GoldCount": 0
+    "AchievementID": 4
   },
   {
     "ID": 1019,
@@ -77,7 +77,7 @@
     "QuestType": 1019,
     "RewardGold": 99,
     "Param1": 2,
-    "GoldCount": 0
+    "AchievementID": 5
   },
   {
     "ID": 1020,
@@ -87,6 +87,6 @@
     "QuestType": 1020,
     "RewardGold": 99,
     "Param1": 2,
-    "GoldCount": 0
+    "AchievementID": 6
   }
 ]
