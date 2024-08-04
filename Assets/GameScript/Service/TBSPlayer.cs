@@ -31,8 +31,8 @@ public static class TBSPlayer
         UserDetail.IndexOnMap = 39;
         UserDetail.currentChapter = 1001;
         UserDetail.diceCount = 12;
-        UserDetail.points.Add(new UserPoint(PointEnum.Gold, 3323));
-        UserDetail.points.Add(new UserPoint(PointEnum.Gem, 8888));
+        UserDetail.points.Add(new UserPoint(PointEnum.Gold, 0));
+        UserDetail.points.Add(new UserPoint(PointEnum.Gem, 0));
 
         int amount = 10;
         for (int i = 103; i <= 110; i++)
@@ -126,9 +126,12 @@ public static class TBSPlayer
     {
         foreach (var data in ConfigManager.table.TbQuest.DataList)
         {
-            //data.DialogueID
-            QuestEntry qe = new QuestEntry(data.ID);
-            UserDetail.boardQuests.Add(data.ID, qe);
+            if (data.Platform == true)
+            {
+                //data.DialogueID
+                QuestEntry qe = new QuestEntry(data.ID);
+                UserDetail.boardQuests.Add(data.ID, qe);
+            }
         }
     }
 
@@ -139,6 +142,37 @@ public static class TBSPlayer
 
         data.status = QuestEntry.QuestStatus.Accepted;
         UserDetail.myQuests.Add(questId, data);
+    }
+    public static void AddQuestProgress(int questType, int addProgress)
+    {
+        var dic = TBSPlayer.UserDetail.myQuests;
+        foreach (var data in dic.Values)
+        {
+            var cfg = ConfigManager.table.TbQuest.Get(data.questId);
+            if (cfg.QuestType == questType)
+            {
+                data.currentProgress += addProgress;
+            }
+        }
+        CheckQuestFinish();
+    }
+    public static void CheckQuestFinish()
+    {
+        var dic = TBSPlayer.UserDetail.myQuests;
+
+        foreach (var data in dic.Values)
+        {
+            if (data.status == QuestEntry.QuestStatus.Accepted && data.currentProgress >= data.maxProgress)
+            {
+                data.status = QuestEntry.QuestStatus.Finished;
+                var cfg = ConfigManager.table.TbQuest.Get(data.questId);
+                int addGold = cfg.GoldCount;
+                TBSPlayer.UpdateGoldAmount(addGold);
+                UIService.Inst.ShowMoneyAnim(addGold);
+            }
+
+        }
+
     }
     #endregion
 
@@ -232,4 +266,15 @@ public class QuestEntry
         //}
     }
 
+}
+public class GameEventData : IEventMessage
+{
+    public int param1;
+    public int questId;
+
+    public GameEventData(int questId, int param1)
+    {
+        this.param1 = param1;
+        this.questId = questId;
+    }
 }

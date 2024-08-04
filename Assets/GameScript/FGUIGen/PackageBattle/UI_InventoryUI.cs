@@ -10,6 +10,7 @@ namespace PackageBattle
         public GButton btn_close;
         public GList inventory_list;
         public UI_ItemDetail itemDetailCom;
+        public GTextField txt_gold;
         public const string URL = "ui://fstosj6igm4tj6";
 
         public static UI_InventoryUI CreateInstance()
@@ -24,6 +25,7 @@ namespace PackageBattle
             btn_close = (GButton)GetChild("btn_close");
             inventory_list = (GList)GetChild("inventory_list");
             itemDetailCom = (UI_ItemDetail)GetChild("itemDetailCom");
+            txt_gold = (GTextField)GetChild("txt_gold");
         }
     }
 }

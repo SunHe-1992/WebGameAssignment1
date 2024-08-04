@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.IO;
-
+using UniFramework.Event;
+using SunHeTBS;
 public class GameManager : MonoBehaviour
 {
     public bool running = true;
@@ -33,6 +34,7 @@ public class GameManager : MonoBehaviour
     }
     private void OnDestroy()
     {
+        RemoveListeners();
     }
     // Start is called before the first frame update
     void Start()
@@ -41,8 +43,30 @@ public class GameManager : MonoBehaviour
         this.timer = timeLimit;
         filePath = Application.persistentDataPath + "/" + settingFileName;
         ResumeGame();
+        AddListeners();
+    }
+    #region event listeners
+    void AddListeners()
+    {
+        UniEvent.AddListener(GameEventDefine.BuyInShop, QuestUpdate);
+        UniEvent.AddListener(GameEventDefine.PickGold, QuestUpdate);
+        UniEvent.AddListener(GameEventDefine.PickRedPotion, QuestUpdate);
+        UniEvent.AddListener(GameEventDefine.PickStar, QuestUpdate);
+        UniEvent.AddListener(GameEventDefine.PickTimer, QuestUpdate);
+        UniEvent.AddListener(GameEventDefine.PickToxicPotion, QuestUpdate);
+        UniEvent.AddListener(GameEventDefine.SummonNPC, QuestUpdate);
 
     }
+    void RemoveListeners()
+    {
+
+    }
+    void QuestUpdate(IEventMessage msg)
+    {
+        var data = msg as GameEventData;
+        TBSPlayer.AddQuestProgress(data.questId, data.param1);
+    }
+    #endregion
 
     // Update is called once per frame
     void Update()
@@ -123,6 +147,10 @@ public class GameManager : MonoBehaviour
     {
         this.coin += value;
         AudioManager.Inst.Play("coin");
+        TBSPlayer.UpdateGoldAmount(value);
+
+
+
     }
 
     #endregion
@@ -248,6 +276,7 @@ public class GameManager : MonoBehaviour
         {
             var ranMove = npc.AddComponent<RandomMovement>();
         }
+        UniEvent.SendMessage(GameEventDefine.SummonNPC, new GameEventData(GameEventDefine.SummonNPC, 1));
     }
     public void CreateAllNPC()
     {

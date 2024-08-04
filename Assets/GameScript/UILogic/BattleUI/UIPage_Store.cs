@@ -122,7 +122,7 @@ public class UIPage_Store : FUIBase
                 TBSPlayer.InsertItem(buyingItem.itemId, 1);
                 HideDetailCom();
                 RefreshContent();
-                UniEvent.SendMessage(GameEventDefine.BuyInShop);
+                UniEvent.SendMessage(GameEventDefine.BuyInShop, new GameEventData(GameEventDefine.BuyInShop, cfg.Price));
             }
             else
             {

@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using SunHeTBS;
+using UniFramework.Event;
 using UnityEngine;
 
 public class MainCharacterController : MonoBehaviour
@@ -154,15 +156,22 @@ public class MainCharacterController : MonoBehaviour
             {
                 case ItemType.TimePotion:
                     GameManager.Instance.AddTime(10);
+                    UniEvent.SendMessage(GameEventDefine.PickTimer, new GameEventData(GameEventDefine.PickTimer, 1));
                     break;
                 case ItemType.Coin:
                     GameManager.Instance.AddCoin(10);
+                    UniEvent.SendMessage(GameEventDefine.PickGold, new GameEventData(GameEventDefine.PickGold, 1));
                     break;
                 case ItemType.Score:
                     GameManager.Instance.AddScore(5);
+                    UniEvent.SendMessage(GameEventDefine.PickStar, new GameEventData(GameEventDefine.PickStar, 1));
                     break;
-                case ItemType.HealthPotion: AddHP(10); break;
-                case ItemType.ToxicPotion: AddHP(-10); break;
+                case ItemType.HealthPotion: AddHP(10);
+                    UniEvent.SendMessage(GameEventDefine.PickRedPotion, new GameEventData(GameEventDefine.PickRedPotion, 1));
+                    break;
+                case ItemType.ToxicPotion: AddHP(-10);
+                    UniEvent.SendMessage(GameEventDefine.PickToxicPotion, new GameEventData(GameEventDefine.PickToxicPotion, 1));
+                    break;
             }
         }
 

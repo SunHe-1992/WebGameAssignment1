@@ -23,6 +23,7 @@ public class UIPage_RunnerGame : FUIBase
         ui.btn_resume.onClick.Set(OnClickBtnResume);
         ui.btn_inventory.onClick.Set(btnInventory);
         ui.btn_store.onClick.Set(btnStore);
+        ui.btn_quest.onClick.Set(btnQuest);
 
     }
     protected override void OnShown()
@@ -103,6 +104,11 @@ public class UIPage_RunnerGame : FUIBase
     {
         FUIManager.Inst.ShowUI<UIPage_Store>(FUIDef.FWindow.StoreUI);
     }
+
+    void btnQuest()
+    {
+        FUIManager.Inst.ShowUI<UIPage_QuestUI>(FUIDef.FWindow.QuestUI);
+    }
     protected override void OnUpdate()
     {
         base.OnUpdate();
@@ -167,4 +173,5 @@ public class UIPage_RunnerGame : FUIBase
 
     }
     #endregion
+
 }

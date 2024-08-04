@@ -56,6 +56,7 @@ public class UIPage_Inventory : FUIBase
         HideDetailCom();
         int count = TBSPlayer.UserDetail.items.Count;
         this.ui.inventory_list.numItems = count;
+        ui.txt_gold.text = "¡Á" + TBSPlayer.GetGoldAmount();
     }
     void OnBtnClose()
     {

@@ -25,7 +25,8 @@ namespace SunHeTBS
         public static int ClickCancel = GenID(0, 11);
         public static int OneVillianDied = GenID(0, 12);
         public static int DialogueFinished = GenID(0, 13);
-        public static int BuyInShop = GenID(0, 14);
+
+
 
 
         #endregion
@@ -35,7 +36,14 @@ namespace SunHeTBS
         public static int POINTS_CHANGED = GenID(1, 2);
         public static int Building_Changed = GenID(1, 3);
         public static int PawnJumpStop = GenID(1, 4);
-
+        //same number as the Quest.xlsx id
+        public static int BuyInShop = GenID(1, 14);
+        public static int PickGold = GenID(1, 15);
+        public static int SummonNPC = GenID(1, 16);
+        public static int PickStar = GenID(1, 17);
+        public static int PickRedPotion = GenID(1, 18);
+        public static int PickToxicPotion = GenID(1, 19);
+        public static int PickTimer = GenID(1, 20);
         #endregion
     }
 
